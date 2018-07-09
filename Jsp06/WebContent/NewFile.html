@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+  body{
+  margin: 0;
+  }
+  #wrap{
+  width: 960px;
+  background: #fff;
+  position: relative;
+  left:50%;
+  margin-left: -480px;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  }
+  #header{
+   background:#eee;
+   padding:20px;
+  }
+  #header .logo{
+  	float: left;
+  }
+  #content{
+  padding:20px;
+  }
+  #footer{
+    background: #000;
+    height: 50px;
+    text-align: center;
+    padding:20px;
+  }
+  #footer span{
+    color:#fff;
+  }
+  .clear {
+     clear: both;
+  }
+  
+  #infoForm{
+    position: relative;
+    width: 50%;
+    border: 1px solid #999;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  #infoForm label{
+     display: block;
+     width: 80px;
+  }
+  #infoForm input{
+     width: 96%;
+  }
+  #infoForm input[type="text"]{
+  
+  }
+  #infoForm input[type="submit"],#infoForm input[type="reset"]{
+  
+  }
+  #infoForm input[type="submit"]:hover,#infoForm input[type="reset"]:hover{
+  
+  }
+  
+</style>
+</head>
+<body>
+   <div id="wrap">
+    <div id="header">
+    <span class="logo"><img src="img/logo.png" alt="사이트 로고"></span>
+     <h1>Css활용</h1>
+     <h2>include액션 태그</h2>
+     <div class="clear"></div>
+     </div>
+     <div id="content">
+	     <form method="post" action="includeTest.jsp" id="infoForm">
+	      <p><label>이름:
+	       	<input type="text" name="name">   
+	      </label>
+	      </p>
+	      <p><label>페이지 이름
+	       	<input type="text" name="pageName" value="includedTest"><br>
+	      </label>
+	      </p>
+	      <p>
+	      	<input type="submit" value="입력완료">
+	      	<input type="reset" value="취소">
+	      </p>
+	     </form>
+     </div>
+     <div id=footer>
+       <span>2018. Choongang All rights Reserverd. </span>
+     </div>
+   </div>
+</body>
+</html>

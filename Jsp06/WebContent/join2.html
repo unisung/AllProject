@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>예제용 파일</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script>
+function chk(){
+	var pass1 =loginForm.pwd1;
+	var pass2 =loginForm.pwd2;
+	
+  if(pass1.value==""){
+	  alert("비번을 입력하세요");
+	  return false;
+  }	
+  if(pass2.value==""){
+	  alert("비번확인을 입력하세요");
+	  return false;
+  }
+  if(pass1.value!=pass2.value){
+	  alert("비번과 확인번호가 서로 다릅니다.");
+	  pass1.value="";
+	  pass2.value="";
+	  pass1.focus();
+	  return false;
+  }
+   if(loginForm.isok.value!="yes"){
+	   alert("가입하시려면 '네'를 선택하세요.");
+	   return false;
+   }
+ 
+  return true;
+}
+</script>
+	<style>
+		body{
+		 margin: 0;
+		}
+		#wrap{
+			width: 960px;
+			background: #ccc;
+			position: relative;
+			left: 50%;
+			margin-left: -480px;
+		}
+		#header{
+		 background: #eee;
+		 padding: 20px;
+		}
+		#header .logo{
+			float: left;
+		}
+		#content{
+		padding: 20px;
+		}
+	    #content img{
+	    	width: 100%;
+	    }
+	    #footer{
+	    	background: #000;
+	    	height: 50px;
+	    	text-align: center;
+	    	padding: 20px;
+	    }
+	    #footer span{
+	    	color:#fff;
+	    }
+	    #loginForm{
+	    	background: #eee;
+	    	position: relative;
+	    	width: 50%;
+	    	border: 1px solid #999;
+	    	margin: 0 auto;
+	    	padding: 20px;
+	    }
+	    #loginForm label{
+	    	display: inline-block;
+	    	width: 30%;
+	    
+	    }
+	    #loginForm input{
+	    	padding:2%;
+	    	color:#666;
+	    	border:none;
+	    	border-right: 1px solid #999;
+	    	border-bottom: 1px solid #999;
+	    }
+	    #loginForm select{
+	    	padding:2%;
+	    	color:#666;
+	    	border:none;
+	    	border-right: 1px solid #999;
+	    	border-bottom: 1px solid #999;
+	    }
+	    #loginForm input[type="checkbox"]{
+	    	width: 10%;
+	    }
+	    #loginForm input[type="submit"],#loginForm input[type="reset"]{
+	    	width: 100%;
+	    	background: #559;
+	    	border: none;
+	    	color: #fff;
+	    	padding: 10px;
+	    }
+	    #loginForm input[type="submit"]:hover,#loginForm input[type="reset"]:hover{
+	    	background: #99c;
+	    	cursor:pointer;
+	    }
+	    #loginForm #phone2, #loginForm #phone3{
+	    	width: 15%;
+	    }
+	    #loginForm input[type="radio"]+label{
+	       width: auto;
+	    }
+	    #loginForm textarea {
+	     width: 96%;
+	     height: 200px;
+		}
+	</style>
+	
+</head>
+<body>
+	<div id="wrap">
+	  <div id="header">
+	     <span class="logo"><img src="img/logo.png" alt="사이트 로고"></span>
+	     <h1>CSS 활용 </h1>
+	     <h2>로그인 폼 두번째</h2>
+	  </div>
+	  <div id="content">
+	   <!--  <form action="loginPro.jsp" id="loginForm" name="loginForm" onsubmit="return chk()"> -->
+	    <form action="joinPro.jsp" id="loginForm" name="loginForm" onsubmit="return chk()">
+	     <h3>회원가입 신청</h3>
+	     <fieldset>
+	     	<legend>필수입력</legend>
+	     	<p>
+	     	<label>이름</label>
+	     	<input type="text" id="name" name="name" required>
+	        </p>
+	     	<p>
+	     	<label>아이디</label>
+	     	<input type="text" id="id" name="id" required>
+	        </p>
+	     	<p>
+	     	<label>비밀번호</label>
+	     	<input type="password" id="pwd1" name="pwd1" >
+	        </p>
+	     	<p>
+	     	<label>비밀번호 확인</label>
+	     	<input type="password" id="pwd2" name="pwd2" >
+	        </p>
+	     </fieldset>
+	     <fieldset>
+	     	<legend>선택정보 입력</legend>
+	     	<p>
+	     	<label>핸드폰</label>
+	     	<select name="phone1" id="phone1">
+	     		<option value="010">010</option>
+	     		<option value="011">011</option>
+	     		<option value="016">016</option>
+	     		<option value="017">017</option>
+	     		<option value="018">018</option>
+	     		<option value="019">019</option>
+	     	</select>
+	         -
+	         <input type="text" id="phone2" name="phone2" maxlength="4">
+	         -
+	         <input type="text" id="phone3" name="phone3" maxlength="4">
+	         </p>
+	         <p>
+	         <label>
+	          	성별
+	         </label>
+	         <input type="radio" class="radio" id="radio-m" name="gender" value="남자" checked>
+	         <label>남</label>
+	         <input type="radio" class="radio" id="radio-w" name="gender" value="여자">
+	         <label>여</label>
+	         </p>
+	     </fieldset>
+	     <fieldset>
+	     	<legend>남기고 싶은 말</legend>
+	     	<textarea rows="" cols="" name="comment"></textarea>
+	     </fieldset>
+	     <p>
+	      회원가입을 완료하시겠습니까?
+	      <input type="radio" class="radio" id="radio-yes" name="isok" value="yes">
+	      <label>네</label>
+	      <input type="radio" class="radio" id="radio-no" name="isok" value="no">
+	      <label>아니오</label>
+	     </p>
+	     <p>
+	     <input type="submit" value="전송">
+	     <input type="reset" value="취소">	     
+	    </p>
+	    </form>
+	  </div>
+	  <div id="footer">
+	    <span>2018.HTML & CSSS 활용 All rights reserved. </span>
+	  </div>
+	</div>
+</body>
+</html>
