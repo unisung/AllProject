@@ -29,6 +29,9 @@
   <c:if test="${18 > param.age}">
    당신의 나이는 18세 미만입니다.
   </c:if>
+  
+  
+  
 
 </body>
 </html>
