@@ -6,4 +6,5 @@
 <%
 	for(int cnt=0;cnt<size;cnt++)
 		out.print("-");
+    out.print("<br>");
 %>
