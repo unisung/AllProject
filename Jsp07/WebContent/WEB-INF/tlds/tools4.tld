@@ -4,17 +4,14 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 		http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
 	version="2.1">
-<description>tLD</description>
+<!-- dynamic taglib definition  -->	
+<description>dynamicTld</description>
 <tlib-version>1.0</tlib-version>
-<short-name>tool</short-name>
+<short-name>dynamictool</short-name>
 <tag>
-	<name>startLine</name>
-    <tag-class>util.StartLineTag</tag-class>
+	<name>dynamicLine</name>
+    <tag-class>util.NewLineTag2</tag-class>
     <body-content>empty</body-content>
-</tag>
-<tag>
-	<name>box</name>
-    <tag-class>util.BoxTag</tag-class>
-    <body-content>scriptless</body-content>
+    <dynamic-attributes>true</dynamic-attributes>
 </tag>
 </taglib>  

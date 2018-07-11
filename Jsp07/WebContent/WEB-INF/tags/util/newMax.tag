@@ -1,7 +1,7 @@
 <%@ tag language="java" pageEncoding="UTF-8"%>
 <%@ tag body-content="empty" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@attribute name="var" required="true" rtexprvalue="false" %>
+<%@attribute name="var" required="true" type="java.lang.String" rtexprvalue="false" %>
 <%@attribute name="num1" type="java.lang.Integer" %>
 <%@attribute name="num2" type="java.lang.Integer" %>
 <%@variable name-from-attribute="var" alias="maximum" 
