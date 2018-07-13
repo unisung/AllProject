@@ -47,44 +47,76 @@ padding-top: 10px;
 padding-bottom: 10px;
 border-bottom: 1px solid #999;
 }
+#bookTable .seq{
+ width: 4%;
+}
+#bookTable .bookno{
+ width: 4%;
+}
 #bookTable .code{
- width: 15%;
+ width: 5%;
 }
 #bookTable .title{
- width: 50%;
+ width: 20%;
+ text-align: left;
 }
 #bookTable .writer{
- width: 20%;
+ width: 15%;
 }
 #bookTable .price{
- width: 10%;
+ width: 4%;
  text-align: right;
 }
 #bookTable .odd{
  background: #eee;
 }
+#bookTable td {
+  text-align:center;
+}
+
 </style>
 </head>
 <body>
 <%
+//페이지 설정
+int pageSize = 10;
+String pageNum = request.getParameter("pageNum");
+//파라미터값이 없거나 빈문자열("")이면 pageNum을 첫페이지(1)로 설정
+if(pageNum==null || pageNum.equals("")) pageNum="1";
+int currentPage = Integer.parseInt(pageNum);
+//현재페이지의 시작번호
+int startRow = (currentPage -1)*pageSize +1;//
+//현재페이지의 마지막번호
+int endRow = currentPage * pageSize;
+
+
 //초기 파라미터 읽어오기
 String driver = application.getInitParameter("Driver");
 String url = application.getInitParameter("url");
 String user =application.getInitParameter("user");
 String password = application.getInitParameter("password");
 
-String sql ="select * from books where writer like '";
-/* out.print(sql); */
+String writer = request.getParameter("writer");//
+//null이나 빈문자열("")인 경우=>"","%": null값과 다른 문자열의 결과는 null
+// null+ "%" => null 연산불가
+writer = "%"+(writer==null?"":writer.trim())+"%";//"%값%"
+
+/* String sql ="select * from books where writer like '"; */
+String sql = "select rownum, a.rn, a.code, a.name, a.writer, a.price "
+           + " from (select rownum rn, books.*" 
+           + " from books " 
+           + " where writer like '"+ writer+"' "   
+           + " order by code) a "
+           + " where rn between "+startRow+" and "+endRow;
+
+/* out.print(sql+"<br>");  */
 
 Connection conn=null;
 Statement stmt=null;
 ResultSet rs=null;
 
 try{
-	String writer = request.getParameter("writer");
-	writer = "%"+(writer==null?"":writer.trim())+"%";
-	sql = sql + writer+"'";
-/* 	out.print(sql+"<br>"); */
+	
 	Class.forName(driver);
 	conn = DriverManager.getConnection(url, user, password);
 	stmt = conn.createStatement();
@@ -98,7 +130,9 @@ try{
 	out.print("<div class='clear'></div>");
 	out.print("<div id='content'>");
 	out.print("<table id='bookTable'>");
-	out.print("<tr><th class='code'>코드</th>");
+	out.print("<tr><th class='seq'>순번</th>");
+	out.print("<th class='bookno'>번호</th>");
+	out.print("<th class='code'>코드</th>");
 	out.print("<th class='title'>제목</th>");
 	out.print("<th class='writer'>저자</th>");
 	out.print("<th class='price'>가격</th></tr>");
@@ -110,6 +144,8 @@ try{
 		<%}else{%>
 			<tr class="even">
 		<%}%>
+		<td class='seq'><%=rs.getInt(++col) %></td>
+		<td class='bookno'><%=rs.getInt(++col) %></td>
 		<td class='code'><%=rs.getInt(++col)%></td>
 		<td class='title'><%=rs.getString(++col) %></td>
 		<td class='writer'><%=rs.getString(++col) %></td>

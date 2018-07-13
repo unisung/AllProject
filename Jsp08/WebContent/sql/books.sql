@@ -60,6 +60,45 @@ select * from books;
 select * from books where writer like '%세익스피어%';
 select * from books where writer like '%세익스피어%';
 
+--rownum(pseudo 슈도칼럼)-오라클에서 제공하는 가상의 칼럼
+--저장된(조회된) 순서대로 번호가 부여되는 칼럼
+select rownum, a.*
+  from (select * from books order by code) a --서브쿼리
+;
+
+--(상위)top 갯수
+select rownum rn, a.*
+  from (select * from books order by code) a --서브쿼리
+ where rownum <=5;
+
+select a.*
+  from (select rownum rn, books.* from books order by code) a --서브쿼리
+ where rn > 5 and rn<=15; 
+ 
+select rownum, a.*
+  from (select rownum rn, books.* from books order by code) a --서브쿼리
+ where rn between 21 and 30; 
+ 
+ 
+-- 구간 예) 6~10
+select *
+ from (select rownum, a.*
+  from (select rownum, books.* from books order by code) a)
+ where rownum >= 6 and rownum <= 10;
+ 
+ 
+  
+select rownum, a.*
+  from (select rownum rn, books.* 
+          from books 
+         where writer like '%'   
+          order by code) a --서브쿼리
+ where rn between 1 and 10; 
+ 
+
+select rownum, a.* from (select rownum rn, books.* from books where writer like '%%' order by code) a 
+where rn between 1 and 10;
 
 
-
+select rownum, a.* from (select rownum rn, books.* from books where writer like '%%' order by code) a
+where rn between 1 and 10
