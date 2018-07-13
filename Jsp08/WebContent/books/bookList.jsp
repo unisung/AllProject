@@ -6,7 +6,6 @@
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>book list 결과</title>
 <style>
-<style>
  body{
  margin: 0;
  }

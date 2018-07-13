@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+ body{
+ margin: 0;
+ }
+ #wrap{
+ width: 960px;
+ background: #ccc;
+ position: relative;
+ margin: 0 auto;
+ }
+ #header{
+ background: #eee;
+ padding: 20px;
+ }
+ #header .logo{
+ float: left;
+ }
+ #content{
+ padding: 20px;
+ }
+ #footer{
+ background: #000;
+ height: 50px;
+ text-align: center;
+ padding: 20px;
+ }
+#footer span{
+ color: #fff;
+}
+.clear{
+ clear: both;/* float속성제거 */
+}
+#frm{
+  position: relative;
+  width: 50%;
+  border: 1px solid #999;
+  margin: 0 auto;
+  padding: 20px;
+}
+#frm label{
+	display: block;
+	width: 100px;
+}
+#frm input{
+	width: 96%;
+}
+#frm input[type="text"]{
+  padding: 2%;
+  color: #666;
+  border:none;
+  border-right: 1px solid #999;
+  border-bottom: 1px solid #999;
+}
+#frm input[type="submit"]{
+  width:100%;
+  background:#559;
+  color: #fff;
+  border:none;
+  padding: 10px;
+}
+#frm input[type="submit"]:hover{
+background:#99c;
+cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div id="wrap">
+<div  id="header">
+<span class="logo"><img src="../img/logo.png"></span>
+<h1>Css 활용</h1>
+<h2> 부서정보 입력폼 </h2>
+<div class="clear"></div>
+</div>
+<div id="content">
+<form name="frm" id="frm" action="deptInput.jsp">
+   <fieldset>
+    <legend>부서코드 입력</legend>
+    <p>
+    <label>부서번호</label>
+    <input type="text" name="no" autofocus="autofocus"><br>
+    </p>
+    <p>
+    <label>부서명</label>
+    <input type="text" name="dname"><br>
+    </p>
+    <p>
+    <label>위치</label>
+    <input type="text" name="loc"><br>
+    </p>
+   </fieldset>
+   <p>
+   <input type="submit" value="전송">
+   </p>
+</form>
+</div><!-- content.끝 -->
+<div id="footer">
+<span>2018. Choongang. </span>
+</div>
+</div>
+</body>
+</html>
