@@ -44,6 +44,8 @@
   	             +rs.getInt("salary")+","+rs.getString("hiredate")+"<br>");    	  
          }catch(Exception e){
         	 out.print(e.getMessage());
+         }finally{
+        	 conn.close();
          }
 %>
 </body>

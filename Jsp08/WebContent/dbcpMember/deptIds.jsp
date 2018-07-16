@@ -47,6 +47,8 @@
     	  <%
      }catch(Exception e){
     	 out.print(e.getMessage());
+     }finally{
+    	 conn.close();
      }
  %>
 </body>

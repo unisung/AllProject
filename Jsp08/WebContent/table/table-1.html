@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+body{
+magrin:0;
+}
+a{
+color:#000;
+text-decoration: none;
+}
+#wrap{
+  width: 960px;
+  background: #fff;
+  position: relative;
+  margin:0 auto;
+  border-left:1px solid #eee;
+  border-right:1px solid #eee;
+}
+#header{
+  background: #eee;
+  padding: 20px;
+
+}
+#header .logo{
+ float: left;
+}
+#content{
+  width: 100%;
+}
+#content img{
+  width: 100%;
+}
+#footer{
+	background: #000;
+	height: 50px;
+	text-align: center;
+	padding: 20px;
+}
+#footer span{
+	color:#fff;
+}
+.clear{
+ clear: both;
+}
+.moviTable{
+  width: 100%;
+  border-spacing: 0;
+}
+.movieTable th{
+ padding-top: 10px;
+ padding-bottom: 10px;
+ border-bottom:1px solid #999;
+}
+.movieTable .poster{
+	width: 8%;
+}
+.movieTable .director{
+	width: 15%;
+}
+.movieTable .date{
+	width: 10%;
+}
+.movieTable td{
+	border-bottom:1px solid #ddd;
+	padding-left: 10px;
+}
+.movieTable .number{
+  text-align: center;
+  padding-left:0px;
+}
+.movieTable tbody td.director{
+ background:#eee;
+}
+
+.movieTable tbody tr:hover{
+   background:#ddd;
+}
+
+.movieTable tfoot td{
+ color: #ddd;
+ background: #333;
+ border-bottom: 2px solid #ccc;
+}
+.movieTable .odd{
+ background: #eee;
+}
+</style>
+</head>
+<body>
+<div id="wrap">
+ <div id="header">
+ <span class="logo"><img src="../img/logo.png" alt="사이트 로고"></span>
+   <h1> 테이블 만들기</h1>
+   <h2> 테이블</h2>
+   <div class="clear"></div>
+ </div>
+ <div id="content">
+  <h3>테이블 만들기 </h3>
+  <table cellspacing="0" cellpadding="0" class="movieTable">
+  <thead>
+   <tr>
+     <th class="number">번호</th>
+     <th class="poster">포스터</th>
+     <th>영화제목</th>
+     <th class="director">영화감독</th>
+     <th class="date">상영일</th>
+   </tr>
+   </thead>
+   <tbody>
+    <tr class="odd">
+     <td class="number">1</td>
+     <td><img src="../img/movie1.jpg"></td>
+     <td>맘마미아!Mamma Mia!</td>
+     <td class="director">필리다 로이드</td>
+     <td>2008.09.03</td>
+    </tr> 
+    <tr>
+     <td class="number">2</td>
+     <td><img src="../img/movie2.jpg"></td>
+     <td>건축학 개론</td>
+     <td class="director">이용주</td>
+     <td>2012.03.22</td>
+    </tr> 
+    <tr class="odd">
+     <td class="number">3</td>
+     <td><img src="../img/movie3.jpg"></td>
+     <td>비긴 어게인Begin Again</td>
+     <td class="director">존 카니</td>
+     <td>2014.08.13</td>
+    </tr> 
+   </tbody>
+   <tfoot>
+     <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>총 3편</td>
+     </tr>
+   </tfoot> 
+  </table>
+ </div>
+ <div id="footer">
+  <span>2018. ChoongAng </span>
+ </div>
+</div><!-- wrap끝. -->
+</body>
+</html>
