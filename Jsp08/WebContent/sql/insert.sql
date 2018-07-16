@@ -30,3 +30,13 @@ update member
  delete member where id='aa';
  select * from member;
  
+ 
+ update member 
+   set name=?,
+       password=?,
+       pno=?,
+       address=? 
+ where id=?;
+ 
+ 
+ select * from member;

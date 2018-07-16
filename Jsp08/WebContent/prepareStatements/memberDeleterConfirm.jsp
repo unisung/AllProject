@@ -10,14 +10,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-  <%
+ <%
+   String memberId = "";
+ 
 //초기 파라미터 읽어오기
 	String driver = application.getInitParameter("Driver");
 	String url = application.getInitParameter("url");
 	String user =application.getInitParameter("user");
 	String password = application.getInitParameter("password");
 	
-	String memberId = request.getAttribute("id")==null ? "" : (String)request.getAttribute("id");
+    
+	memberId = request.getParameter("id")==null ? "" : request.getParameter("id");
+	System.out.println("memberId="+memberId);
 	
 	String sql="delete from member where id='"+memberId+"'";
 	
