@@ -26,7 +26,7 @@
    //2.연결맺기
     Connection conn = DriverManager.getConnection(url, user, password);
    //3.쿼리객체생성
-    Statement stmt =conn.createStatement();
+    Statement stmt =conn.createStatement();   
    //4.쿼리문 실행
    //4-1.id와 password확인 
    out.print(sqlPwd);
