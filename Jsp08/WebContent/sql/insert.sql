@@ -24,3 +24,9 @@ update member
  where id=id;
 
  select * from member where id = 'aa';
+ 
+ select * from member;
+ 
+ delete member where id='aa';
+ select * from member;
+ 
