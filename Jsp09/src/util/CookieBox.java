@@ -48,7 +48,7 @@ public class CookieBox {
   }
   
   public String getValue(String name) throws UnsupportedEncodingException {
-	  Cookie cookie = cookieMap.get(name);
+	  Cookie cookie = cookieMap.get(URLDecoder.decode(name, "utf-8"));
 	  if(cookie==null)
 		  return null;
 	  

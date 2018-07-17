@@ -1,0 +1,37 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>new Object()로 사용자 객체 만들기</title>
+<script>
+  function inquiry(){return this.balance;}//잔액조회
+  function deposit(money){this.balance+=money;}//입금
+  function withdraw(money){this.balance-=money; return money;}//출금
+
+  //사용자 객체 만들기
+  var account = new Object();
+   account.owner = "홍길동";//계좌 소유주 프로퍼티 생성및 초기화
+   account.code ="111";//코드프로퍼티 생성및 초기화
+   account.balance = 35000;//잔액 프로퍼티 생성 및 초기화
+   account.inquiry =inquiry;//메소드 대입
+   account.deposit = deposit;//메소드 대입
+   account.withdraw=withdraw;//메소드 대입
+ </script>
+</head>
+<body>
+<h3>new Object()로 사용자 객체 만들기</h3>
+<hr>
+<script>
+  //객체 활용
+  document.write("account:");
+  document.write(account.owner+".");
+  document.write(account.code+".");
+  document.write(account.balance+"<br>");
+  
+  account.deposit(1000);//1000원 입금
+  document.write("1000원 입금 후 잔액:"+account.inquiry()+"<br>");
+  account.withdraw(5000);//5000원 출금
+  document.write("5000원 출금 후 잔액:"+account.inquiry()+"<br>");
+  
+</script>
+
+ 
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+  function pr(msg,arr){
+	  document.write(msg+arr.toString()+"<br>");//toString()메소드
+  }
+
+</script>
+</head>
+<body>
+<script>
+   var a= new Array("황","김","이");
+   var b= new Array("박");
+   var c;
+   
+   pr("배열 a=",a);
+   pr("배열 b=",b);
+   document.write("<hr>");
+   
+   c= a.concat(b)//a와 b배열 연결
+   pr("c= a.concat(b) 후 c=",c);
+   pr("c= a.concat(b) 후 a=",a);
+   
+   c=a.join("##");
+   pr("c=a.join()후 c=",c);
+   
+   c=a.reverse();
+   pr("c=a.reverse() 후의 c=",c);
+   
+   c=a.slice(1,2);//1<=범위<2
+   pr("c=a.slice(1,2) 후의 c=",c);
+   
+   c=a.sort();//정렬
+   pr("c=a.sort() 후의 c=",c);
+   pr("c=a.sort() 후의 a=",a);
+   
+   c=a.toString();//문자열출력
+   document.write("a.toString():"+c);
+   
+   
+</script>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>prompt활용</title>
+</head>
+<body>
+<script type="text/javascript">
+var ret=prompt("이름을 입력하세요","");
+if(ret==null){
+	alert("취소버튼이나 다이얼로그를 닫은 경우입니다.");
+}else if(ret==""){
+	alert("문자열 입력 없이 확인 버튼 누른 경우입니다.");
+}else{
+	alert("입력값은:"+ret+"입니다.");
+}
+</script>
+
+</body>
+</html>

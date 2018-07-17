@@ -1,0 +1,26 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>switch문</h3>
+<hr>
+<script type="text/javascript">
+ var price=0;
+ var coffee=prompt("무슨커피를 드릴까요?","");
+ switch(coffee){
+ case "espresso":
+ case "에소프레소":
+	   price =2000;
+	   break;
+ case "카푸치노": price=3000; break;
+ case "카페라떼": price=3500;
+ break;
+ default:
+	 document.write(coffee+"는 없습니다.");
+ }
+ if(price!=0)
+	 document.write(coffee+"는 "+price+"원 입니다.");
+</script>
+
+</body>
+</html>

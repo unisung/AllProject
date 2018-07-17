@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>이벤트 리스너 속성에 자바스크립크 코드</title>
+<!-- 해당파일내에서 <script>영역 지정해서 작성</script> -->
+<script>
+   function over(obj){
+	   obj.src="media/banana.png";
+   }
+   function out(obj){
+	   obj.src="media/apple.png";
+   }
+</script>
+</head>
+<body>
+ <h3>마우스를 올려 보세요</h3>
+ <!-- 이벤트리스너:onmouseover,onmouseout
+      this 해당요소, src:속성
+  -->
+<img src="media/apple.png" alt="사과이미지"
+     onmouseover="over(this)" 
+     onmouseout="out(this)">
+     <!-- 함수 호출 "over(this)" "out(this)"-->
+</body>
+</html>

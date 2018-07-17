@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>innerHTML활용</title>
+<script>
+function change(){
+	var p = document.getElementById("firstP");
+	p.innerHTML = "나의 <img src='img/puppy.png'>강아지";
+	
+	var text = "p.id="+p.id+"\n";
+	 text +="p.tagName ="+p.tagName+"\n";
+	 text +="p.innerHTML ="+p.innerHTML+"\n";
+	 text +="p.innerText ="+p.innerText+"\n";
+	 text +="p.style.color ="+p.style.color+"\n";
+	 text +="p.onclick = "+p.conclick+"\n";
+	 text +="p.childElementCount ="+p.childElementCount+"\n";
+	 text +="너비 ="+p.offsetWidth+"\n";
+	 text +="높이 ="+p.offsetHeight+"\n";
+	 alert(text);
+}
+</script>
+</head>
+<body>
+<h3>innerHTML활용: 아래 글자 클릭하면 예쁜 강아지가 보입니다.</h3>
+<hr>
+<p id="firstP" style="color:blue" onclick="change()">
+ 여기에<span style="color:red">클릭하세요</span>
+</p>
+
+<script>
+ var p = document.getElementById("firstP");
+ var text = "p.id="+p.id+"\n";
+ text +="p.tagName ="+p.tagName+"\n";
+ text +="p.innerHTML ="+p.innerHTML+"\n";
+ text +="p.innerText ="+p.innerText+"\n";
+ text +="p.style.color ="+p.style.color+"\n";
+ text +="p.onclick = "+p.conclick+"\n";
+ text +="p.childElementCount ="+p.childElementCount+"\n";
+ text +="너비 ="+p.offsetWidth+"\n";
+ text +="높이 ="+p.offsetHeight+"\n";
+ alert(text);
+</script>
+</body>
+</html>

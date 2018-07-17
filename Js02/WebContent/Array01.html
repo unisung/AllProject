@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>[]로 배열 만들기</h3>
+<hr>
+<script>
+ var plots =[20,5,8,15,20];//원소 5개인 배열
+ document.write("var polts =[20,5,8,15,20]<br>");
+ for(i=0;i<5;i++){
+	 var size=plots[i];//size=20,5,8,15,20
+	 while(size>0){
+		 document.write("*");
+		 size--;
+	 }
+	 document.write(plots[i]+"<br>");
+ }
+ plots[5]=30;//자바스크립트의 배열은 길이가 고정되어있지 않음.
+ document.write("plots[5]="+plots[5]);
+</script>
+</body>
+</html>

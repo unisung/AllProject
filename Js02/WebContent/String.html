@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script>
+  var a = new String("Boys and Girls");
+  var b = "!!";
+  
+  document.write("a:"+a+"<br>");
+  document.write("b:"+b+"<br><hr>");
+  document.write(a.charAt(0)+"<br>");
+  document.write(a.concat(b)+"<br>");
+  document.write(a.indexOf("s")+"<br>");
+  document.write(a.indexOf("And")+"<br>");//-1
+  document.write(a.slice(5,8)+"<br>");
+  document.write(a.substr(5,3)+"<br>");
+  document.write(a.toUpperCase()+"<br>");
+  document.write(a.replace("and", "or")+"<br><hr>");
+  
+  var sub = a.split(" ");
+  document.write("a를 빈칸으로 분리<br>");
+  for(var i=0;i<sub.length;i++)
+	  document.write("sub"+i+"="+sub[i]+"<br>");
+
+	  
+  
+</script>
+</body>
+</html>

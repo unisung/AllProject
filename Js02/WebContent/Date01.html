@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+   <script>
+     var next = new Date(2018,7,15,12,12,12);
+     document.write("next.toLocaleString():"+next.toLocaleString()+"<br>");
+   </script>
+   <script>
+    var current = new Date();
+    if(current.getSeconds()%2==0)
+    	document.body.style.backgroundColor="violet";
+    else
+    	document.body.style.backgroundColor="lightskyblue";
+    document.write("현재시간:");
+    document.write(current.getHours(),"시");
+    document.write(current.getMinutes(),"분");
+    document.write(current.getSeconds(),"초");
+   </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>CSS 스타일 변경</title>
+<script>
+function change(){
+	var span = document.getElementById("mySpan");
+	span.style.color="green";
+	span.style.fontSize="30px";
+	span.style.display="block";
+	span.style.width="6em";
+	span.style.border="3px dotted magenta";
+	span.style.margin="20px";
+}
+
+</script>
+</head>
+<body>
+<h3>CSS 스타일 동적 변경</h3>
+<hr>
+<p style="color:blue">
+  이것은<span id="mySpan" style="color:red">문장입니다.</span>
+</p>
+<input type="button" value="스타일 변경" onclick="change()" id="inP">
+
+<script>
+ var p = document.getElementById("inP");
+ var text = "p.id="+p.id+"\n";
+ text +="p.tagName ="+p.tagName+"\n";
+ text +="p.innerHTML ="+p.innerHTML+"\n";
+ text +="p.style.color ="+p.style.color+"\n";
+ text +="p.onclick = "+p.conclick+"\n";
+ text +="p.childElementCount ="+p.childElementCount+"\n";
+ text +="너비 ="+p.offsetWidth+"\n";
+ text +="높이 ="+p.offsetHeight+"\n";
+ alert(text);
+</script>
+</body>
+</html>

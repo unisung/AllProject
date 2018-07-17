@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<p id="firstP" style="color:blue"  onclick="this.style.color='teal'">
+  이것은 <span style="color:red">문장입니다.</span>
+</p>
+<script>
+ var p = document.getElementById("firstP");
+ var text = "p.id="+p.id+"\n";
+ text +="p.tagName ="+p.tagName+"\n";
+ text +="p.innerHTML ="+p.innerHTML+"\n";
+ text +="p.style.color ="+p.style.color+"\n";
+ text +="p.onclick = "+p.conclick+"\n";
+ text +="p.childElementCount ="+p.childElementCount+"\n";
+ text +="너비 ="+p.offsetWidth+"\n";
+ text +="높이 ="+p.offsetHeight+"\n";
+ alert(text);
+</script>
+</body>
+</html>

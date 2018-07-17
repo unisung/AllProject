@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+body{
+ font-size: 9pt;
+}
+.text-container{
+  position: relative;
+  top:100px;
+  left:100px;
+  width: 300px;
+  height: 30px;
+  border:1px solid #ff0000;
+ /*  overflow: hidden; */ 
+}
+.text-container .content{
+     position: absolute;
+     width: 800px;
+     left:0;
+     top:0;
+}
+#scroller1{
+  top:100px;
+  left:100px;
+}
+#scroller2{
+  top:150px;
+  left:100px;
+  width: 500px;
+}
+</style>
+<script src="js/jquery-3.3.1.min.js"></script>
+<!-- jquery는 자바스크립트 라이브러리 묶음  -->
+<script>
+$(document).ready(function(){
+	textScroller("#scroller1",2);
+	textScroller("#scroller2",1);
+});
+function textScroller(select,speed){
+	var $container = null;
+	var $content = null;
+	var startPosX = 0;
+	var endPosX = 0;
+	var currentPosX = 0;
+	
+	//중첩함수
+	function init(){
+		$container = $(select);
+		$content = $container.find(".content");
+		
+		startPosX = $container.outerWidth();
+		endPosX = -$content.outerWidth();
+		
+		currentPosX = startPosX;
+		
+		console.log(startPosX);
+		console.log(endPosX);
+		
+		
+	}
+	//중첩함수:위치설정
+	function setPosition(pos){
+		$content.css("left",pos);//css(속성명,값);
+	}
+	
+	//setInterval(function(){},밀리초);
+	//밀리초단위로 funtionc()이 실행.
+	//setInerval은 id를 가지고있음.
+	function autoPlay(){
+		setInterval(function() {
+			currentPosX -=speed;
+			if(currentPosX<endPosX)
+				currentPosX = startPosX;
+			 setPosition(currentPosX);
+		}, 40);
+	}
+	
+	
+	init();
+	setPosition(currentPosX);
+	autoPlay();
+}
+</script>
+</head>
+<body>
+  <div class="text-container" id="scroller1">
+    <div class="content">
+        안녕하세요~~ 자바스크립트 강의에 오신걸 환영합니다......   홍길동...
+    </div>
+  </div>
+  <div class="text-container" id="scroller2">  
+    <div class="content">
+       안녕하세요~~ 자바스크립트 강의에 오신걸 환영합니다......  문자열 배너입니다. .... 홍길동....  문자열 배너입니다. .... 홍길동
+    </div>
+  </div>
+</body>
+</html>

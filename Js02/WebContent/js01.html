@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>객체 생성 및 활용</title>
+</head>
+<body>
+<h3>객체 생성</h3>
+ <hr>
+ <script>
+    //Date객체 생성
+    var today = new Date();//
+    //Date객체의 toLocaleString() 메소드 호출
+    document.write("현재시간:"+today.toLocaleString()+"<br>");
+    document.write("년도:"+today.getFullYear()+"<br>");
+    document.write("월:"+today.getMonth()+"<br>");
+    document.write("일:"+today.getDate()+"<br>");
+    document.write("요일:"+today.getDay()+"<br>");
+    
+    var day = new Array("일","월","화","수","목","금","토");
+    document.write(day[0]+"<br>");
+    document.write(day[5]+"<br>");
+    document.write(day[today.getDay()]+"요일<br>");
+    
+    
+    //String 객체 생성
+    var mystr = new String("자바스크립트 공부하기");
+    document.write("mystre의 내용:"+mystr+"<br>");
+    document.write("mystr의 길이:"+mystr.length+"<br>");
+    
+    
+ 
+ </script>
+</body>
+</html>
