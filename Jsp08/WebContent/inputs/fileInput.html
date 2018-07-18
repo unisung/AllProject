@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+function test(){
+	alert(document.form1.file.value);
+}
+</script>
+</head>
+<body>
+<form name="form1" action="blobInput.jsp" onsubmit="test()">
+ <p>
+ <input type="file" name="fileName"  id="i_file">
+ </p>
+ <input type="submit" value="확인">
+</form>
+</body>
+</html>
