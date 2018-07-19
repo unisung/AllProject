@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -9,11 +10,14 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import model.Member;
+
 public class MemberDao {
   Connection conn=null;
   PreparedStatement pstmt=null;
   Statement stmt=null;
   ResultSet rs=null;
+  String sql ="";
   
   private Connection getConnection() {
 	  Connection conn=null;
@@ -41,5 +45,31 @@ public class MemberDao {
 	  }
 	  return cnt;
   }//userCheck() 끝.
+  
+  //회원정보 입력
+  public int insertMember(Member member) {
+	  int result =-1;
+	  try {
+		    sql="insert into member values(?,?,?,?,?,?,?,?,?,?,?)";
+		    pstmt = getConnection().prepareStatement(sql);
+		    int i=0;
+		    pstmt.setString(++i, member.getId());
+		    pstmt.setString(++i, member.getPassword());
+		    pstmt.setString(++i, member.getName());
+		    pstmt.setDate(++i,   member.getBirth());
+/*		    pstmt.setDate(++i, new java.sql.Date(member.getBirth().getTime()));
+*/		    pstmt.setString(++i, member.getZipcode());
+		    pstmt.setString(++i, member.getAddress1());
+		    pstmt.setString(++i, member.getAddress2());
+		    pstmt.setString(++i, member.getTel1());
+		    pstmt.setString(++i, member.getTel2());
+		    pstmt.setString(++i, member.getTel3());
+		    pstmt.setString(++i, member.getEmail());
+		    result = pstmt.executeUpdate();
+	  }catch(Exception e) {
+		  System.out.println(e.getMessage());
+	  }
+	  return result;
+  }//insertMember()메소드 끝.
   
 }

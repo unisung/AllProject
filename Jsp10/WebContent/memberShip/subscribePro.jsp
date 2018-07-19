@@ -1,6 +1,6 @@
+<%@page import="java.util.Date"%>
 <%@page import="dao.MemberDao"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="java.util.Date"%>
 <%@page import="model.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -16,8 +16,7 @@
     request.setCharacterEncoding("utf-8");
    /* form의 type='date' 이고 bean의 속성타입이 util.Date 타입인 경우 */
     String date = request.getParameter("birth");
-    Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date);
-    
+    java.sql.Date date1 = new java.sql.Date(new java.util.Date().getTime());
     Member member = new Member();
     member.setBirth(date1);
     
