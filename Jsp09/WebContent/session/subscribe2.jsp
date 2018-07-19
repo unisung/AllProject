@@ -18,12 +18,11 @@
     	String id = (String)session.getAttribute("id");
     	String password = (String)session.getAttribute("password");
     	String name = (String)session.getAttribute("name");
-    	/* out.print("id="+id);
+    	
+    	out.print("id="+id);
+    	out.print("password="+password);
     	out.print("name="+name);
-    	Enumeration em = session.getAttributeNames();
-    	while(em.hasMoreElements()){
-    		out.print(em.nextElement().toString());
-    	} */
+    	
       try{
     	   MemberDao dao = new MemberDao();
     	   Member member = new Member();
@@ -49,8 +48,7 @@
     session.invalidate();
     out.print("<script>");
     out.print("location.href=Result.jsp?result="+result);
-    out.print("</script>");
-    //response.sendRedirect("Result.jsp?result="+result); 
+    out.print("</script>"); 
 %>
 </body>
 </html>

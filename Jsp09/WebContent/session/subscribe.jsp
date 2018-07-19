@@ -38,7 +38,7 @@
     	out.print("</script>");
     }
     //세션의 값을 사용 후 세션제거
-    //session.invalidate();
+    session.invalidate();
     response.sendRedirect("Result.jsp?result="+result); 
 %>
 </body>

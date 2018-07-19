@@ -9,8 +9,10 @@
  	String result = request.getParameter("result");
   if(result.equals("success")) out.print("회원가입 축하합니다<br>");
   else{
-	  out.print("가입시 문제가 발생하였습니다.");
-	  out.print("window.locaton.href='PersonalInfo.jsp'");
+	  out.print("<script>");
+	  out.print("alert('가입시 문제가 발생하였습니다.');");
+	  out.print("window.location.href='PersonalInfo.jsp';");
+	  out.print("</script>");
      }
  %>
 </body>

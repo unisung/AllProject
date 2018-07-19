@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>세션 스토리지 구입 리스트 저장/검색</h3>
+<hr>
+<p>
+품목명:<input type="text" id="item">
+개수:<input type="text" id="count">
+</p>
+<p>
+<button id="save" onclick="store()">저장</button>
+<button id="retrieve" onclick="retrieve()">조회</button>
+<button id="clear" onclick="c">비우기</button>
+</p>
+<script>
+var item = document.getElementById("item");
+var count =document.getElementById("count");
+function store(){
+	if(!window.sessionStorage){/* HTML5이전 버전의 브라우저  */
+		alert("세션 스토리지를 지원하지 않습니다.");
+		return;
+	}
+	/* 저장 setItme(이름,값) */
+	sessionStorage.setItem(item.value,count.value);
+}
+function retrieve(){
+	if(!window.sessionStorage){/* HTML5이전 버전의 브라우저  */
+		alert("세션 스토리지를 지원하지 않습니다.");
+		return;
+	}
+	/* 조회 getItem(이름) */
+	var val = sessionStorage.getItem(item.value);
+	if(val==null)
+		alert(item.value+"는 구입리스트에 없습니다.");
+	else
+		count.value=val;
+} 
+function clearAll(){
+	if(!window.sessionStorage){/* HTML5이전 버전의 브라우저  */
+		alert("세션 스토리지를 지원하지 않습니다.");
+		return;
+	}
+	/* sessionStorage.clear(); */
+	alert('비우기 완료');
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h3>로컬 스토리지 Storage Event</h3>
+<hr>
+품목명:<input type="text" id="item" size="10">
+개수:<input type="text" id="count" size="10">
+<button id="save" onclick="store()">저장</button>
+<button id="ret" onclick="ret()">조회</button><p>
+로컬 스토리지의 변경 내용(storage이벤트):<br>
+<textarea rows="6" cols="60" id="textarea"></textarea>
+
+<script>
+//window객체에 이벤트리스너(이벤트감지기)부착
+//addEventListener(리스너명, callback함수,)
+//-매개변수로 넘어온 함수(특정시점에 자동으로 실행되는 함수)
+window.addEventListener("storage",storageEventListener,false);
+
+function storageEventListener(e){
+  var eventDetail = "key:\t\t\t"+e.key+"\n"
+                  +"oldValue:\t\t"+e.oldValue+"\n"
+                  +"newValue:\t\t"+e.newValue+"\n"
+                  +"storageArea:\t\t"+e.storateArea+"\n"
+                  +"url:\t\t"+e.url;
+  document.getElementById("textarea").innerHTML=eventDetail;
+}
+var item = document.getElementById("item");
+var count = document.getElementById("count");
+function store(){
+	if(!window.localStorage){
+		alert("로컬스토리지를 지원하지 않습니다.");
+		return;
+	}
+	localStorage.setItem(item.value,count.value);
+}
+function ret(){
+	if(!window.localStorage){
+		alert("로컬스토리지를 지원하지 않습니다.");
+		return;
+	}
+	var val = localStorage.getItem(item.value);
+	if(val==null)
+		alert(item.value+"는 구입 리스트에 없습니다.");
+	else
+		count.value=val;
+}
+</script>
+</body>
+</html>
