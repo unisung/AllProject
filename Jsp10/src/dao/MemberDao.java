@@ -46,6 +46,32 @@ public class MemberDao {
 	  return cnt;
   }//userCheck() 끝.
   
+  //로그인 처리
+  public int userCheck(String id, String password){
+	  int result=-1;//초기 false인 상태로 초기화
+	  try {
+		    sql = "select password from member where id=?";//id가 없는 경우 null값이 select됨.
+		    conn = getConnection();
+		    pstmt = conn.prepareStatement(sql);
+		    pstmt.setString(1, id);
+		    rs = pstmt.executeQuery();
+		    //select 결과 null이 아닌값이 조회된경우
+		    if(rs.next()) {//id가 같고
+		    	String dbPass = rs.getString(1);
+		    	if(password.equals(dbPass)){//password가 같은 경우
+		    		result=1;
+		    	}else {//id는 같지만  password가 다른경우
+		    		result=0;
+		    	}
+		    }else {//id가 존재하지 않은 경우
+		    	result=-1;
+		    }
+	  }catch(Exception e) {
+		  System.out.println(e.getMessage());
+	  }
+	  return result;
+  }//userCheck(id,password)메소드 끝.
+  
   //회원정보 입력
   public int insertMember(Member member) {
 	  int result =-1;
@@ -76,5 +102,35 @@ public class MemberDao {
 	  }
 	  return result;
   }//insertMember()메소드 끝.
+  
+  //회원정보 조회
+  public Member getMember(String id){
+	  Member member = null;
+	  try {
+		   sql = "select * from member where id=?";
+		   pstmt = getConnection().prepareStatement(sql);
+		   pstmt.setString(1, id);
+		   rs = pstmt.executeQuery();
+	       if(rs.next()) {
+	    	   member = new Member();
+	    	   int i=0;
+	    	   member.setId(rs.getString(++i));
+	    	   member.setPassword(rs.getString(++i));
+	    	   member.setName(rs.getString(++i));
+	    	   member.setBirth(rs.getDate(++i));
+	    	   member.setZipcode(rs.getString(++i));
+	    	   member.setAddress1(rs.getString(++i));
+	    	   member.setAddress2(rs.getString(++i));
+	    	   member.setTel1(rs.getString(++i));
+	    	   member.setTel2(rs.getString(++i));
+	    	   member.setTel3(rs.getString(++i));
+	    	   member.setEmail(rs.getString(++i));
+	       }
+	  }catch(Exception e) {
+		  System.out.println(e.getMessage());
+	  }
+	  return member;
+  }//getMember()메소드 끝.
+  
   
 }
