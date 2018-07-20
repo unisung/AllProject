@@ -56,9 +56,14 @@ public class MemberDao {
 		    pstmt.setString(++i, member.getId());
 		    pstmt.setString(++i, member.getPassword());
 		    pstmt.setString(++i, member.getName());
-		    pstmt.setDate(++i,   member.getBirth());
-/*		    pstmt.setDate(++i, new java.sql.Date(member.getBirth().getTime()));
-*/		    pstmt.setString(++i, member.getZipcode());
+		    //Member의 birth타입이 java.sql.Date인 경우
+		    //아래 사용
+		    //pstmt.setDate(++i,   member.getBirth());
+		    //java.util.Date타입 + getTime() => 'yyyy-MM-dd HH:mm:ss'
+		    //Member의 birth 타입이 java.util.Date인 경우 
+		    //아래 사용
+		    pstmt.setDate(++i, new java.sql.Date(member.getBirth().getTime()));
+		    pstmt.setString(++i, member.getZipcode());
 		    pstmt.setString(++i, member.getAddress1());
 		    pstmt.setString(++i, member.getAddress2());
 		    pstmt.setString(++i, member.getTel1());

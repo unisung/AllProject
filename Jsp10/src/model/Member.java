@@ -1,7 +1,9 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 
+//java.util.Date의 포멧 yyyy-MM-dd
+//java.sql.Date의 포멧 yyyy-MM-dd HH:mm:ss
 public class Member {
 	 //필드
 	 private String id;

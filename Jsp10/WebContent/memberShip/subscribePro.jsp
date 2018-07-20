@@ -16,8 +16,12 @@
     request.setCharacterEncoding("utf-8");
    /* form의 type='date' 이고 bean의 속성타입이 util.Date 타입인 경우 */
     String date = request.getParameter("birth");
-    java.sql.Date date1 = new java.sql.Date(new java.util.Date().getTime());
-    Member member = new Member();
+   //"yyyy-MM-dd" +getTime() <- "hh:mm:ss"
+    java.sql.Date date1 
+     = new java.sql.Date(new SimpleDateFormat("yyyy-MM-dd").parse(date).getTime());
+    
+    /*  Date date1 = new SimpleDateFormat("yyyy-MM-dd").parse(date); */
+     Member member = new Member();
     member.setBirth(date1);
     
     
@@ -55,7 +59,7 @@
 	 if(result>0){
 		 out.print("<script>");
 		 out.print("alert('회원가입을 축하드립니다.');");
-		 out.print("location.href='subscribeForm.jsp';");
+		 out.print("location.href='loginForm.jsp';");
 		 out.print("</script>");
 	 }else{
 		 out.print("<script>");
