@@ -116,7 +116,11 @@ padding: 20px;
 </thead>
 <tbody>
 <%
+    //권한여부 확인
    MemberDao  dao = new MemberDao();
+   String grade = dao.getPrivilege(id);
+   if(grade.equals("admin")){
+   //리스트 출력
    List<Member> list = dao.memberList();
    int i=0;
    for(Member m:list){
@@ -124,7 +128,6 @@ padding: 20px;
 	  out.print("<tr class='even'>");
      else
       out.print("<tr class='odd'>");
-     
     out.print("<td class='number'>"+i+"</td>");
 	out.print("<td class='ids'>"+m.getId()+"</td>");   
 	out.print("<td class='name'>"+m.getName()+"</td>");   
@@ -154,5 +157,13 @@ padding: 20px;
   <span> 2018. Choongang. </span>
  </div>
  </div><!-- wrap끝.  -->
+ <%}else{%>
+  <script>
+  alert('권한이 없습니다.');
+  location.href='main.jsp';
+  </script>
+  <%
+  } 
+   %>
 </body>
 </html>

@@ -235,4 +235,21 @@ public class MemberDao {
 	 
 	 return list;
  }//memberList() 메소드 끝.
+ 
+ //권한체크
+ public String getPrivilege(String id){
+	 String grade="guest";
+	 try {
+		  sql = "select grade from privilege where id=?";
+		  pstmt = getConnection().prepareStatement(sql);
+		  pstmt.setString(1, id);
+		  rs = pstmt.executeQuery();
+		  if(rs.next())
+			  grade = rs.getString(1);
+	 }catch(Exception e) {
+		 System.out.println(e.getMessage());
+	 }
+	 return grade;
+ }//getPrivilege()메소드 끝.
+ 
 }
