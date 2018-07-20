@@ -4,7 +4,11 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -132,5 +136,103 @@ public class MemberDao {
 	  return member;
   }//getMember()메소드 끝.
   
+  //회원수정 메소드
+  public int updateMember(Member member){
+	  int result=-1;
+	   Connection conn=null;
+	  try {
+		    conn=getConnection();
+		    conn.setAutoCommit(false);
+		   sql = " update member set name=?,password=?,birth=?, "
+		   	  + " zipcode=?,address1=?,address2=?,tel1=?,tel2=?,tel3=?,email=? "
+		   	  + " where id=?";
+		   
+		  pstmt = conn.prepareStatement(sql);
+		  pstmt.setString(1, member.getName());
+		  pstmt.setString(2, member.getPassword());
+		  pstmt.setDate(3,  new Date(member.getBirth().getTime()));
+		  pstmt.setString(4, member.getZipcode());
+		  pstmt.setString(6, member.getAddress2());
+		  pstmt.setString(7, member.getTel1());
+		  pstmt.setString(8, member.getTel2());
+		  pstmt.setString(9, member.getTel3());
+		  pstmt.setString(10,member.getEmail());
+		  pstmt.setString(11,member.getId());
+		  pstmt.setString(5,member.getAddress1());
+		  
+		  result = pstmt.executeUpdate();
+		  if(result>0)
+			  conn.commit();
+		  else
+			  conn.rollback();
+	  }catch(Exception e) {
+		System.out.println(e.getMessage());  
+	  }finally {
+		  try {
+			conn.setAutoCommit(true);
+		} catch (SQLException e) {e.printStackTrace();	}
+	  }
+	  return result;
+  }//updateMember()메소드 끝.
   
+  //회원탈퇴 처리
+ public int deleteMember(String id){
+	 int result =0;
+	 try {
+		   conn=getConnection();
+		   conn.setAutoCommit(false);
+		   sql = "delete from member where id=?";
+		   pstmt = conn.prepareStatement(sql);
+		   pstmt.setString(1, id);
+		   result = pstmt.executeUpdate();
+		   conn.commit();
+	 }catch(Exception e) {
+		 try {
+			conn.rollback();
+		} catch (SQLException e1) {
+			System.out.println(e.getMessage());
+		}
+	 }finally {
+		 try {
+			 conn.setAutoCommit(true);
+			 pstmt.close();
+			 conn.close();
+		 }catch(Exception e) {
+			 e.printStackTrace();
+		 }
+	 }//finally 끝.
+	 return result; 
+  }//deleteMember()메소드 끝.
+ 
+  //회원정보 리스트
+ public Vector<Member> memberList(){
+	 Vector<Member> list = new Vector<>();
+	 try {
+		  sql = "select * from member order by id";
+		  pstmt = getConnection().prepareStatement(sql);
+		  rs = pstmt.executeQuery();
+		  while(rs.next()) {
+			  int i=0;
+			  Member member = new Member();
+			  
+			  member.setId(rs.getString(++i));
+			  member.setPassword(rs.getString(++i));
+			  member.setName(rs.getString(++i));
+			  member.setBirth(rs.getDate(++i));
+			  member.setZipcode(rs.getString(++i));
+			  member.setAddress1(rs.getString(++i));
+			  member.setAddress2(rs.getString(++i));
+			  member.setTel1(rs.getString(++i));
+			  member.setTel2(rs.getString(++i));
+			  member.setTel3(rs.getString(++i));
+			  member.setEmail(rs.getString(++i));			  
+			  //리스트에 담기
+			  list.add(member);
+		  }
+	 }catch(Exception e) {
+		 System.out.println(e.getMessage());
+	 }
+	 
+	 return list;
+ }//memberList() 메소드 끝.
 }

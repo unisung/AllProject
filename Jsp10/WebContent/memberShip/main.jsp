@@ -10,7 +10,7 @@
 <table>
  <tr>
  <td>
- <input type="button" onclick="location.href='deleteMember.jsp'" value="회원탈퇴"></input>
+ <input type="button" onclick="location.href='deleteMemberForm.jsp'" value="회원탈퇴"></input>
  </td>
  <td>
  <input type="button" onclick="location.href='updateMemberForm.jsp'" value="회원수정"></input>
