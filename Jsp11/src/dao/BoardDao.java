@@ -3,6 +3,8 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -104,6 +106,64 @@ public class BoardDao {
 		close(conn,pstmt,rs);
 	}
  }//insert(Board board) 메소드 끝.
+ 
+ //전체 글 건수 확인
+ public int  getBoardCount(){
+	 int count=0;
+	try {
+		  conn=getConnection();
+		  pstmt=conn.prepareStatement("select count(*) from board");
+		  rs=pstmt.executeQuery();
+		  if(rs.next())
+			  count =rs.getInt(1);	
+	}catch(Exception e) {
+		e.printStackTrace();
+	}finally {
+		close(conn,pstmt,rs);
+	}
+	 return count;
+ }// getBoardCount() 메소드 끝.
+ 
+ //게시글 리스트 조회
+ public List<Board> getBoards(int startRow,int endRow){
+	 List<Board> list=new ArrayList<>();
+	 try {
+		 String sql="select * " + 
+		 		   " from " + 
+		 		   " (select rownum rn, a.* " + 
+		 		   "  from " + 
+		 		   " (select * from board order by ref desc, re_step asc) a) " + 
+		 		   " where rn between ? and ? ";
+		 conn=getConnection();
+		 pstmt = conn.prepareStatement(sql);
+		 pstmt.setInt(1, startRow);
+		 pstmt.setInt(2, endRow);
+		 rs = pstmt.executeQuery();
+		 while(rs.next()) {
+			 int i=1;
+			 Board board = new Board();
+			 board.setNum(rs.getInt(++i)); 
+			 board.setWriter(rs.getString(++i));
+			 board.setSubject(rs.getString(++i));
+			 board.setContent(rs.getString(++i));
+			 board.setEmail(rs.getString(++i));
+			 board.setReadcount(rs.getInt(++i));
+			 board.setPasswd(rs.getString(++i));
+			 board.setRef(rs.getInt(++i));
+			 board.setRe_step(rs.getInt(++i));
+			 board.setRe_level(rs.getInt(++i));
+			 board.setIp(rs.getString(++i));
+			 board.setReg_date(rs.getDate(++i));
+			 
+			 list.add(board);
+		 }
+	 }catch(Exception e) {
+		 e.printStackTrace();
+	 }finally {
+		 close(conn, pstmt, rs);
+	 }	 
+	 return list;
+ }//getBoards(int startRow,int endRow) 메소드 끝.
  
  //close메소드
  private void close(Connection conn, PreparedStatement pstmt,ResultSet rs) {

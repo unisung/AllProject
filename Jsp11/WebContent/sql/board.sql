@@ -32,3 +32,15 @@ values(?,?,?,?,?,?,sysdate,?,?,?,?);
 truncate table board;
 
 select * from board;
+
+-- 시작,끝 
+select *
+ from
+(select rownum rn, a.* 
+  from
+(select * from board order by ref desc, re_step asc) a)
+where rn between 1 and 10;
+;
+
+
+
