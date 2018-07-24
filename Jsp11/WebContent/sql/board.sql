@@ -31,7 +31,7 @@ values(?,?,?,?,?,?,sysdate,?,?,?,?);
 
 truncate table board;
 
-select * from board;
+select * from board where num >=900;
 
 -- 시작,끝 
 select *
@@ -42,5 +42,5 @@ select *
 where rn between 1 and 10;
 ;
 
-
+update board set readcount=readcount+1 where num=1000;
 

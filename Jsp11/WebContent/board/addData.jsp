@@ -10,7 +10,7 @@
 <%
 	   BoardDao dao = BoardDao.getInstance();
 	   Board board = new Board();
-	   for(int i=100;i<1000;i++){
+	   for(int i=0;i<1000;i++){
 		   board.setWriter("글쓴이"+i);
 		   board.setSubject("글제목"+i);
 		   board.setContent("글내용 "+i);

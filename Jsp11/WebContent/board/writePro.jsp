@@ -1,3 +1,4 @@
+<%@page import="dao.BoardDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -26,9 +27,20 @@
    out.print(board.getReg_date()+"<br>"); */
    String pageNum = request.getParameter("pageNum");
    board.setIp(request.getRemoteAddr());
-   out.print(board.getIp()+"<br>");
-   
-   
+   /* out.print(board.getIp()+"<br>"); */
+   BoardDao dao = BoardDao.getInstance();
+   int result = dao.insert(board);
+   if(result>0){
+	   out.print("<script>");
+	   out.print("alert('게시글 등록 완료');");
+	   out.print("location.href='list.jsp?pageNum="+pageNum+"';");
+	   out.print("</script>");
+   }else{
+	   out.print("<script>");
+	   out.print("alert('게시글 등록 중 오류 발생');");
+	   out.print("history.back();");
+	   out.print("</script>");
+   }
 %>
 </body>
 </html>

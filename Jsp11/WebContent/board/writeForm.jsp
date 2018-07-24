@@ -45,9 +45,13 @@ function writeSave(){
 </head>
 <body>
 <%
+    //글번호 와 글그룹 번호 초기화
 	int num=0,ref=1,re_step=0,re_level=0;
+	//페이지 번호 초기화
     String pageNum=request.getParameter("pageNum");
+	//파라미터로 받은 페이지 번호가 없으면 1페이지로 설정
     if(pageNum==null||"".equals(pageNum)) pageNum="1";
+	//파라미터로 받은 글번호가 없으면 신규글,글번호가 있으면 답변글 
     if(request.getParameter("num")!=null){//답변글
     	num=Integer.parseInt(request.getParameter("num"));
         ref=Integer.parseInt(request.getParameter("ref"));

@@ -101,7 +101,7 @@ body,td{text-align: center;}
        <%
 	  }
 	  for(int i=startPage;i<=endPage;i++){%>
-	  <a href="listg.jsp?pgeNum=<%=i%>">[<%=i%>]</a><%
+	  <a href="list.jsp?pageNum=<%=i%>">[<%=i%>]</a><%
 	  }
 	  if(endPage < pageCount){ %>
       <a href="list.jsp?pageNum=<%=startPage+10 %>">[다음]</a>

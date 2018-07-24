@@ -45,8 +45,9 @@ public class BoardDao {
   }//getConnection() 메소드 끝.
  
  //글 입력
- public void insert(Board board){
-	int result =-1;
+ public int insert(Board board){
+	//입력처리 결과 받는 변수
+	 int result =-1;
 	//글번호
 	int num = board.getNum();
 	//글 그룹번호
@@ -86,7 +87,9 @@ public class BoardDao {
 			  +" board(num,writer,subject,content,email,passwd,"
 			  +" reg_date,ref,re_step,re_level,ip) "
 			  +" values(?,?,?,?,?,?,sysdate,?,?,?,?)";
+			 //쿼리 객체 생성
 			 pstmt=conn.prepareStatement(sql);
+			 //바인딩 변수 에 값 설정
 			 pstmt.setInt(1, number);
 			 pstmt.setString(2, board.getWriter());
 			 pstmt.setString(3, board.getSubject());
@@ -98,13 +101,15 @@ public class BoardDao {
 			 pstmt.setInt(9, re_level);//re_level=0;
 			 pstmt.setString(10, board.getIp());
 			 
+			 //입력결과 받기
 			 result = pstmt.executeUpdate();
 
 	}catch(Exception e) {
 		e.printStackTrace();
 	}finally {
 		close(conn,pstmt,rs);
-	}
+	}//finally 끝.
+	return result;
  }//insert(Board board) 메소드 끝.
  
  //전체 글 건수 확인
@@ -164,6 +169,55 @@ public class BoardDao {
 	 }	 
 	 return list;
  }//getBoards(int startRow,int endRow) 메소드 끝.
+ 
+ //번호에 해당하는 글 내용(content) 조회
+ public Board getBoard(int num){
+	 //updateCount(num);
+	 Board board = null;
+	 String sql ="select * from board where num=?";
+	 try {
+		  conn=getConnection();
+		  pstmt = conn.prepareStatement(sql);
+		  pstmt.setInt(1, num);
+		  rs=pstmt.executeQuery();
+		  if(rs.next()) {
+			  int i=0;
+			  board = new Board();
+			  board.setNum(rs.getInt(++i));
+			  board.setWriter(rs.getString(++i));
+			  board.setSubject(rs.getString(++i));
+			  board.setContent(rs.getString(++i));
+			  board.setEmail(rs.getString(++i));
+			  board.setReadcount(rs.getInt(++i));
+			  board.setPasswd(rs.getString(++i));
+			  board.setRef(rs.getInt(++i));
+			  board.setRe_step(rs.getInt(++i));
+			  board.setRe_level(rs.getInt(++i));
+			  board.setIp(rs.getString(++i));
+			  board.setReg_date(rs.getDate(++i));
+		  }	  
+	 }catch(Exception e) {
+		 e.printStackTrace();
+	 }finally {
+		 close(conn,pstmt,rs);
+	 }
+	 return board;
+ }// getBoard(int num) 메소드 끝.
+ 
+ //조회 건수 증가
+ public void updateCount(int num){
+	String sql ="update board set readcount=readcount+1 where num=?";
+	try {
+		conn=getConnection();
+		pstmt=conn.prepareStatement(sql);
+		pstmt.setInt(1, num);
+		pstmt.executeUpdate();
+	}catch(Exception e) {
+		e.printStackTrace();
+	}finally {
+		close(conn,pstmt);
+	}
+ }//updateCount(int num) 메소드 끝.
  
  //close메소드
  private void close(Connection conn, PreparedStatement pstmt,ResultSet rs) {
