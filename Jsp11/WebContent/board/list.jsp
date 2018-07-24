@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 <style>
 body,td{text-align: center;}
+.left{  text-align:left; }
 </style>
 </head>
 <body>
@@ -60,24 +61,24 @@ body,td{text-align: center;}
  		Board board=(Board)boardList.get(i);
    %>
  	  <tr height="30">
- 	  <td><%=number--%></td>
+ 	  <td><%=number--%>|<%=board.getNum()%></td>
  	  <td width="250" class="left">	
  	<%
  	  int wid=0;
  	if(board.getRe_level()>0){
- 		wid=5*(board.getRe_level());
+ 		wid=10*(board.getRe_level());
  	%>
- 	<img src="images/level.gif" width="<%=wid%>" height="16">
- 	<img src="images/re.gif">
+ 	<img src="../images/level.gif" width="<%=wid%>" height="16">
+ 	<img src="../images/re.gif">
  	<%}else{%>
- 	<img src="images/level.gif" width="<%=wid%>" height="16">	
+ 	<img src="../images/level.gif" width="<%=wid%>" height="16">	
  	<%	
  	}
    %>
    <a href="content.jsp?num=<%=board.getNum()%>&pageNum=<%=currentPage%>">
    <%=board.getSubject()%></a>
    <% if(board.getReadcount()>=20){%>
-   <img src="images/hot.gif" border="0" height="16"><%}%>
+   <img src="../images/hot.gif" border="0" height="16"><%}%>
    </td>	
    <td><a href="mailto:<%=board.getEmail()%>"><%=board.getWriter()%></a></td>
    <td><%=board.getReg_date()%></td><td><%=board.getReadcount() %></td>

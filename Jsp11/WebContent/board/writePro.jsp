@@ -41,6 +41,7 @@
 	   out.print("history.back();");
 	   out.print("</script>");
    }
+
 %>
 </body>
 </html>

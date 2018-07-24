@@ -219,6 +219,133 @@ public class BoardDao {
 	}
  }//updateCount(int num) 메소드 끝.
  
+ //수정 처리 메소드
+ public int updateBoard(Board board) {
+	 int result=0;
+	 String sql ="update board set subject=?,email=?,content=? where num=?";
+	 String sql2="select passwd from board where num=?";
+	try {
+	     conn = getConnection();
+	     //비번 조회
+	     pstmt =conn.prepareStatement(sql2);
+	     pstmt.setInt(1, board.getNum());
+	     rs = pstmt.executeQuery();
+	     if(rs.next()) {
+	    	 String inputPassword = board.getPasswd();//파라미터로 넘어온 패스워드
+	    	 String dbPassword = rs.getString(1);//해당 글번호로 조회한 패스워드
+	    	  //비번이 같으면 update처리
+	    	 if(inputPassword.equals(dbPassword)) {	    		 
+			     pstmt = conn.prepareStatement(sql);
+			     pstmt.setString(1, board.getSubject());
+			     pstmt.setString(2, board.getEmail());
+			     pstmt.setString(3, board.getContent());
+			     pstmt.setInt(4, board.getNum());
+			     //update성공하면 1row의 처리결과값 인 1이 result에 저장, 실패하면 0
+				 result = pstmt.executeUpdate();
+	    	 }else//비번이 다르면 result값을 -1로 
+	    		result =-1;
+	    }
+	}catch(Exception e){
+		e.printStackTrace();
+	}finally {
+		close(conn,pstmt,rs);
+	}
+	 return result;
+ }//updateBoard(Board board) 메소드 끝.
+ 
+ //게시글 삭제 메소드
+ public int  deleteBoard(int num,String passwd){
+	 int result =-1;
+	 String sqlPass = "select passwd from board where num=?";
+	 String sqlDel = "delete board where num=?";
+	 try {
+	       conn = getConnection();
+	       pstmt = conn.prepareStatement(sqlPass);
+	       pstmt.setInt(1, num);
+	       rs = pstmt.executeQuery();
+	       if(rs.next())
+	    	   if(passwd.equals(rs.getString(1))) {
+	    		   pstmt = conn.prepareStatement(sqlDel);
+	    		   pstmt.setInt(1, num);
+	    		   //삭제 성공 result=1,실패 result=0
+	    		   result = pstmt.executeUpdate();	    		   
+	    	   }else
+	    		   result =-1;//비번이 틀리면 -1
+	 }catch(Exception e) {
+		 e.printStackTrace();
+	 }finally {
+		 close(conn,pstmt,rs);
+	 }
+	 return result;
+ }//deleteBoard(int num,String passwd) 메소드 끝.
+ 
+ //좋아요/싫어요
+ public int updateFavor(int num, String ip, String id, String option){
+	 int result = 0;
+	 String sql = "insert into favorHate values(?,?,?,?,?)";
+	 try {
+		  conn = getConnection();
+		  pstmt = conn.prepareStatement(sql);
+		  pstmt.setInt(1, num);
+		  pstmt.setString(2,ip);
+		  pstmt.setString(3, id);
+		  
+		  if(option.equals("1")) {//좋아요
+			  pstmt.setInt(4,1);
+			  pstmt.setInt(5,0);
+		  }
+		  else {//싫어요
+			  pstmt.setInt(4, 0);
+			  pstmt.setInt(5, 1);
+		  }
+		  result = pstmt.executeUpdate();
+	 }catch(Exception e) {
+		 e.printStackTrace();
+	 }finally {
+		 close(conn,pstmt);
+	 }
+	 return result;
+ }//updateFavor()메소드
+ 
+ //좋아요 건수 출력
+ public int  getFavorCnt(int num) {
+	 int cnt =0;
+	 String sql ="select sum(favor) from favorHate where num=?";
+	 try {
+		 conn=getConnection();
+		 pstmt=conn.prepareStatement(sql);
+		 pstmt.setInt(1, num);
+		 rs = pstmt.executeQuery();
+		 if(rs.next())
+			 cnt = rs.getInt(1);
+	 }catch(Exception e) {
+		 e.printStackTrace();
+	 }finally {
+		 close(conn,pstmt,rs);
+	 }
+	 return cnt;
+ }//getFavorCnt(int num) 메소드 끝.
+ 
+//싫어요 건수 출력
+public int  getHateCnt(int num) {
+	 int cnt =0;
+	 String sql ="select sum(hate) from favorHate where num=?";
+	 try {
+		 conn=getConnection();
+		 pstmt=conn.prepareStatement(sql);
+		 pstmt.setInt(1, num);
+		 rs=pstmt.executeQuery();
+		 if(rs.next())
+			 cnt = rs.getInt(1);
+	 }catch(Exception e) {
+		 e.printStackTrace();
+	 }finally {
+		 close(conn,pstmt,rs);
+	 }
+	 return cnt;
+}//getFavorCnt(int num) 메소드 끝.
+
+ 
  //close메소드
  private void close(Connection conn, PreparedStatement pstmt,ResultSet rs) {
 	 try {

@@ -31,10 +31,10 @@ values(?,?,?,?,?,?,sysdate,?,?,?,?);
 
 truncate table board;
 
-select * from board where num >=900;
+select * from board where num >=1000;
 
 -- 시작,끝 
-select *
+select num, writer, ref,re_step,re_level
  from
 (select rownum rn, a.* 
   from
@@ -44,3 +44,23 @@ where rn between 1 and 10;
 
 update board set readcount=readcount+1 where num=1000;
 
+select passwd from board where num=101;
+
+
+drop table favorHate;
+create table favorHate(
+num number(5) not null,
+ip varchar2(30),
+id varchar2(30),
+favor number(1),
+hate  number(1)
+);
+
+insert into favorHate(num,ip,id,favor,hate) values(1003,'127.0.0.1','',1,0);
+insert into favorHate(num,ip,id,favor,hate) values(1003,'127.0.0.2','',1,0);
+insert into favorHate(num,ip,id,favor,hate) values(1003,'127.0.0.3','',0,1);
+insert into favorHate(num,ip,id,favor,hate) values(1003,'127.0.0.4','',1,0);
+
+select * from favorHate;
+
+select num,sum(favor),sum(hate) from favorHate group by num;
