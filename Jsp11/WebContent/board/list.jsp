@@ -80,7 +80,13 @@ body,td{text-align: center;}
    <% if(board.getReadcount()>=20){%>
    <img src="../images/hot.gif" border="0" height="16"><%}%>
    </td>	
-   <td><a href="mailto:<%=board.getEmail()%>"><%=board.getWriter()%></a></td>
+   <%-- <td><a href="mailto:<%=board.getEmail()%>"><%=board.getWriter()%></a></td> --%>
+   <td>
+   <a href="sendMailForm.jsp?emailId=<%=board.getEmail()%>
+   &writer=<%=board.getWriter()%>
+   &pageNum=<%=pageNum%>">
+   <%=board.getWriter()%></a>
+   </td>
    <td><%=board.getReg_date()%></td><td><%=board.getReadcount() %></td>
    <td><%=board.getIp()%></td>     
    </tr>
