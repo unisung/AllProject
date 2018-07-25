@@ -67,3 +67,11 @@ select num,sum(favor),sum(hate) from favorHate group by num;
 
 select * from board where num = 1003;
 update board set email ='vctor@naver.com' where num=1003;
+
+select 'map.put("'||email||'",','"'||writer||'")' from board where num >=1000;
+
+
+ 
+
+
+

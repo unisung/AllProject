@@ -1,0 +1,15 @@
+body {	FONT-SIZE: 9pt; background-color: #e0ffff;
+			text-align: center;	}
+table {	background-color: #e0ffff;		}
+td {	FONT-SIZE: 9pt;	background-color: #b0e0e6; }
+select {	FONT-SIZE: 9pt; }
+form {	FONT-SIZE: 9pt; }
+.value_c{
+	background-color: rgba(214, 219, 204, 1);
+}
+tr:nth-child(even) {
+	background-color: #FAED7D;
+}
+tr:first-child {
+	background-color: #6799FF;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Insert title here</title>
+<script type="text/javascript">
+function chk(){
+	var id = document.getElementById('id');
+	var pwd = document.getElementById('password');
+	if(!id.value){
+		alert("id를 입력하세요");
+		id.focus();
+		return false;
+	}
+	if(!pwd.value){
+		alert("비밀번호를 입력하세요");
+		pwd.focus();
+		return false;
+	}
+	return true;
+}
+</script>
+<script>
+function app(){
+	window.location.href="joinProc1.jsp";
+}
+/* persistence connection */
+</script>
+</head>
+<body>
+   <form action="LoginProc.jsp" method="post" onsubmit="return chk()">
+   	<fieldset>
+   		<legend>로그인</legend>
+   		<p>아이디:<input type="text" name="id" id="id"/><p>
+   		<p>비밀번호:<input type="password" name="password" id="password"/><p>
+   		<p><input type="submit" value="로그인">
+   		   <input type="reset" value="지우기">
+   		   <input type="button" value="회원가입" onclick="app()">
+   	</fieldset>
+   </form>
+</body>
+</html>

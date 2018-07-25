@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context>
+<Resource
+  name="jdbc/OraDB"
+  auth="Container"
+  type="javax.sql.DataSource"
+  username="hr"
+  password="hr"
+  driverClassName="oracle.jdbc.driver.OracleDriver"
+  factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+  url="jdbc:oracle:thin:@localhost:1521:xe"
+  maxActive="500"
+  maxIdle="100"
+  /> 
+  <Resource
+  name="jdbc/MysqlDB"
+  auth="Container"
+  type="javax.sql.DataSource"
+  username="user01"
+  password="user01"
+  driverClassName="com.mysql.jdbc.Driver"
+  factory="org.apache.tomcat.dbcp.dbcp2.BasicDataSourceFactory"
+  url="jdbc:mysql://localhost:3306/mydatabase01"
+  maxActive="500"
+  maxIdle="100"
+  />
+ </context>
