@@ -47,7 +47,7 @@
     email.setSSL(true);//보안설정
     email.setTLS(true);//보안설정
     //보내는 사람의 이메일 id와 비번을 저장 
-    email.setAuthentication("vctor", "navVctor7!");//메일인증 
+    email.setAuthentication("vctor", "비번");//메일인증 
     
     //메일 내용 저장
     email.setSubject(subject);//이메일 제목 저장
@@ -60,6 +60,7 @@
     while(itor.hasNext()){
     	String emailId = itor.next();
     	String receiver = map.get(emailId);
+    	System.out.println(emailId+":"+receiver);
     	email.addTo(emailId,receiver);//수신자 이메일 주소
     }
     email.setFrom("vctor@naver.com","홍길동");//발신자 이멜 주소
