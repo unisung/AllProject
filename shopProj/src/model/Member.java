@@ -25,8 +25,10 @@ public class Member {
 	public void setPassword(String password) {		this.password = password;	}
 	public String getName() {		return name;	}
 	public void setName(String name) {		this.name = name;	}
+	
 	public Date getBirth() {		return birth;	}
 	public void setBirth(Date birth) {		this.birth = birth;	}
+	
 	public String getZipno() {		return zipno;	}
 	public void setZipno(String zipno) {		this.zipno = zipno;	}
 	public String getAddress1() {		return address1;	}
