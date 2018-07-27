@@ -19,15 +19,15 @@
     
     out.print(msg+"<br>");
     out.print("email:"+sEmail+"<br>");
-    out.print("<script>");
-    out.print("function chk(){"); 
+    /* out.print("<script>");
+    out.print("function chk(){");  
     out.print("var sp=document.getElementById('sp');");
     out.print("var text='전송완료';");
     out.print("alert(sp);");
     out.print("alert(text);");
     out.print("sp.innerHTML=text;");
-     out.print("}"); 
-    out.print("</script>");
+    out.print("}");  
+    out.print("</script>"); */
     
 	  /*  int num = 97;
 	   char c=' ';
@@ -102,3 +102,15 @@ function cfm(){
  }
 }
 </script>
+<%
+out.print("<script>");
+out.print("function chk(){");  
+out.print("var sp=document.getElementById('sp');");
+out.print("var text='전송완료';");
+out.print("alert(sp);");
+out.print("alert(text);");
+out.print("sp.innerHTML=text;");
+out.print("}");  
+out.print("</script>");
+
+%>

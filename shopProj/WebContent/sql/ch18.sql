@@ -112,8 +112,8 @@ create table member(
 	name varchar2(20) not null,  -- 회원명
 	birth date,  -- 생일
 	zipno varchar2(7), -- 우편번호
-	address1 varchar2(80), -- 주소1
-	address2 varchar2(50), -- 주소2 
+	address1 varchar2(150), -- 주소1
+	address2 varchar2(150), -- 주소2 
 	tel1 varchar2(3),  -- 전화번호1
     tel2 varchar2(4),  -- 전화번호2
     tel3 varchar2(4),  -- 전화번호3
@@ -121,6 +121,7 @@ create table member(
 	regdate date default sysdate, --가입일자
 	use_flag char(1) default 0 -- 회원상태(가입,탈퇴)
 );
+
 
 select * from member;
 
@@ -200,3 +201,62 @@ select 'private '||decode(data_type,'NUMBER','int','DATE','Date','VARCHAR2','Str
  order by column_id;
 
 select * from cols where table_name='BUY';
+
+
+--- union all 집합 A U B U C U D
+select 'insert into member(' from dual
+  union all
+
+select lower(column_name)||',' 
+  from cols
+ where table_name = 'MEMBER'
+ 
+ union all
+ 
+select ') values (' from dual
+
+union all
+
+select lower(column_name)||',' 
+  from cols
+ where table_name = 'MEMBER'
+ 
+ union all
+ 
+ select ')' from dual;
+
+
+ select password from member where id='king';
+ 
+ select *
+  from 
+ (select * 
+  from book 
+ where book_kind='100' 
+ order by reg_date desc )
+ where rownum<=2;
+ 
+ -- book 
+ select 'insert into book (' from dual
+  union all
+
+select lower(column_name)||',' 
+  from cols
+ where table_name = 'BOOK'
+ 
+ union all
+ 
+select ') values (' from dual
+
+union all
+
+select lower(column_name)||',' 
+  from cols
+ where table_name = 'BOOK'
+ 
+ union all
+ 
+ select ')' from dual;
+ 
+ 
+ select * from book;

@@ -43,7 +43,9 @@ member.setBirth(date);
   System.out.println(member.getEmail()); */
   
   MemberDao dao = MemberDao.getInstance();
+  //회원가입 DB처리
   int result = dao.insertMember(member);
+  
   if(result>0){
 	 session.setAttribute("member", member);
 	 response.sendRedirect("subscribeResult.jsp");
