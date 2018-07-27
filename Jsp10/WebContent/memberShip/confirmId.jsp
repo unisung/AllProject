@@ -4,19 +4,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<%
-String id = request.getParameter("id");
-%>
+<% String id = request.getParameter("id"); %>
 <script>
   function cl(){
 	 opener.document.frm.id.value="<%=id%>";
 	 window.close();//현재창(자신)을 닫음
   }
-</script>
-</head>
-<body>
+</script> </head><body>
 <%   
-    
 	 MemberDao dao = new MemberDao();
       int result = dao.userCheck(id);//id존재여부 확인 메소드 */
      if(result==1){%>
