@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이벤트 객체 전달받기</title>
+</head>
+<body>
+<p id="p">마우스를 올려보세요</p>
+<button onclick="f(event)">클릭하세요</button>
+
+<script>
+function f(e){
+	alert(e.type);//이벤트의 종류 출력
+}
+var p; 
+p=document.getElementById("p");
+p.onmouseover=f;
+</script>
+
+</body>
+</html>

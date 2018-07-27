@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>onClick</title>
+<script>
+function calculate(){
+	var exp = document.getElementById("exp");
+	var result = document.getElementById("result");
+	result.value = eval(exp.value);//문자열"3*5-2*5/4"-> 수식:3*5-3*5/4로 계산
+}
+</script>
+</head>
+<body>
+<h3>onclick, 계산기 </h3>
+<hr>
+계산 하고자 하는 수식을
+입력하고 계산 버튼을 누르세요.
+<br><br>
+<form>
+식:<input type="text" id="exp" value=""><br>
+값:<input type="text" id="result">
+<input type="button" value="계산" onclick="calculate()"> 
+</form>
+</body>
+</html>

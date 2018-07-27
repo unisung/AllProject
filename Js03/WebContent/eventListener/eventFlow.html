@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="UTF-8">
+<title>이벤트 흐름</title>
+</head>
+<body>
+<p style="color:blue">이것은
+   <span style="color:red" id="span">문장입니다</span>
+</p>
+<form>
+ <input type="text" name="s">
+ <input type="button" value="테스트" id="button">
+ <hr>
+</form>
+<div id="div" style="color:green"></div>
+
+<script>
+var div = document.getElementById("div");
+var button = document.getElementById("button");
+
+//body객체에 캡쳐리스너 등록
+document.body.addEventListener("click",capture,true);//켑쳐단계(1)
+//
+button.addEventListener("click",bubble,false);//버블단계(2)
+
+//body객체에 버블 리스너 등록
+document.body.addEventListener("click",bubble,false);//버블단계(3)
+
+function capture(e){
+	var obj = e.currentTarget;//현제 이벤트를 받는 dom객체
+	var tagName = obj.tagName;
+	div.innerHTML +='<br>Capture단계:'+tagName+"태그"+e.type+"이벤트";
+}
+function bubble(e){
+	var obj = e.currentTarget;//현제 이벤트를 받는 dom객체
+	var tagName = obj.tagName;
+	div.innerHTML +='<br>bubble단계:'+tagName+"태그"+e.type+"이벤트";
+	e.stopPropagation();
+}
+</script>
+   
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+var p;
+function init(){
+	p=document.getElementById("p");
+	p.onmouseover=over;//id가 p인 요소의 onmouseover이벤트 발생시 over()함수 실행;
+	p.onmouseout=out;////id가 p인 요소의 onmouseout 이벤트 발생시 out()함수 실행;
+}
+function over(){
+	p.style.backgroundColor="orchid";
+}
+function out(){
+	p.style.backgroundColor="white";
+}
+</script>
+</head>
+<body onload="init()">
+<h3>DOM 객체의 이벤트 리스너 프로퍼티에 함수 등록</h3>
+<hr>
+<p id="p">마우스를 올리면 orchid 색으로 변경</p>
+</body>
+</html>
