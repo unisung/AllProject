@@ -95,18 +95,75 @@ public class BookDao extends DaoManger implements BookService {
 
 		return 0;
 	}
-
+	
+   //분야별 등록 도서 건수 확인메소드
 	@Override
 	public int getBookCount(String kind) {
+       int count=0;
+       String sql="";
+       try {
+    	     if("all".equals(kind)) {
+    	         sql = "select count(*) from book";//미리 쿼리문 작성
+        	     pstmt = getConnection().prepareStatement(sql);//작성된쿼리문으로 쿼리객체생성
+    	         }
+    	       else {
+    	         sql = "select count(*) from book where book_kind like ?";
+        	     pstmt = getConnection().prepareStatement(sql);
+    	         pstmt.setString(1, kind);
+    	       } 
+    	     rs = pstmt.executeQuery();
+    	     if(rs.next()) count=rs.getInt(1);
+       }catch(Exception e) {
+    	   e.printStackTrace();
+       }finally {
+    	   close(conn,pstmt,rs);
+       }
+		return count;
+	}//getBookCount(String kind) 끝.
 
-		return 0;
-	}
-
+	//분야별 등록 도서 리스트 메소드
 	@Override
 	public List<Book> getBooks(String kind) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		List<Book> list = new ArrayList<>();
+		String sql="";
+		if("all".equals(kind)) {
+			sql = "select * from book order by reg_date desc";
+		}else {
+			sql ="select * from book where book_kind like ? order by reg_date desc";
+		}
+		try {
+			if("all".equals(kind)) {//전체
+			   pstmt = getConnection().prepareStatement(sql);
+			}else {//분야별
+			    pstmt = getConnection().prepareStatement(sql);
+			    pstmt.setString(1,kind);
+			}
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int i=0;
+				Book book = new Book();
+				book.setBook_id(rs.getInt(++i));
+				book.setBook_kind(rs.getString(++i));
+				book.setBook_title(rs.getString(++i));
+				book.setBook_price(rs.getInt(++i));
+				book.setBook_count(rs.getInt(++i));
+				book.setAuthor(rs.getString(++i));
+				book.setPublishing_com(rs.getString(++i));
+				book.setPublishing_date(rs.getString(++i));
+				book.setBook_image(rs.getString(++i));
+				book.setBook_content(rs.getString(++i));
+				book.setDiscount_rate(rs.getInt(++i));
+				book.setReg_date(rs.getDate(++i));
+				
+				list.add(book);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(conn,pstmt,rs);
+		}
+		return list;
+	}//getBooks()메소드 끝.
 
 	@Override
 	public List<Book> getBooks(String kind, int startRow, int endRow) {

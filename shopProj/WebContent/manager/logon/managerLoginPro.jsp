@@ -9,13 +9,15 @@
 </head>
 <body>
 <%
+    /* 관리자 로그인시 id, 패스워드를 파라미터로 받아서  관리자 체크 메소드로 인증 처리 */
 	String id=request.getParameter("id");
     String password = request.getParameter("password");
     BookDao dao = BookDao.getInstance();
     //관리자 id,패스워드 체크
     int result = dao.managerCheck(id,password);
     if(result==1){//로그인 처리
-       session.setAttribute("mamagerId", id);
+    	//인증처리 후 session에 관리자 id 등록 후 관리자 메인 화면으로 이동.
+       session.setAttribute("managerId", id);
        response.sendRedirect("../managerMain.jsp");
     }else if(result==0){
     	out.print("<script>");

@@ -264,3 +264,8 @@ select lower(column_name)||','
  select * from book;
  
  select * from member;
+ 
+ 
+ select count(*) from book where book_kind like '100';
+ 
+ select * from book ;
