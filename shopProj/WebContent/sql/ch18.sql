@@ -27,6 +27,8 @@ create table manager (
 -- 관리자 id/패스워드 입력
 insert into manager values ('master','1234');
 
+select managerpasswd from manager where managerid='master';
+
 --book 등록용 시퀀스 생성
 create sequence book_seq 
 start with 1 
@@ -260,3 +262,5 @@ select lower(column_name)||','
  
  
  select * from book;
+ 
+ select * from member;

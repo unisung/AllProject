@@ -132,10 +132,27 @@ public class BookDao extends DaoManger implements BookService {
 		return 0;
 	}
 
+	//관리자 로그인 체크
 	@Override
 	public int managerCheck(String id, String password) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		int result=-1;
+		String sql ="select managerpasswd from manager where managerid=?";
+		try {
+			   pstmt = getConnection().prepareStatement(sql);
+			   pstmt.setString(1, id);
+			   rs = pstmt.executeQuery();
+			   if(rs.next()) {
+				   if(password.equals(rs.getString(1))) {
+					   result=1;//id, 패스워드 모두 맞으면 1
+				   }else {
+					   result=0;//id는 맞지만, 패스워드가 다를때 0
+				   }
+			   }else
+				   result=-1;//맞는 id가 없을 때 -1
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}//managerCheck()메소드 끝.
 
 }
