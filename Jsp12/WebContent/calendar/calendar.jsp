@@ -1,3 +1,6 @@
+<%@page import="dao.CalDao"%>
+<%@page import="dto.CalendarDto"%>
+<%@page import="java.util.List"%>
 <%@page import="java.util.Calendar"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -6,6 +9,65 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%   request.setCharacterEncoding("utf-8"); %>
+<%!
+    /* 일정 <a>태그를 상요하여 등록된 일정으로 이동 */
+	public String callist(int year,int month,int day){
+	String s="";
+	s+=String.format("<a href='%s?year=%d&month=%d&day=%d'>"
+			 ,"callist.jsp",year,month,day);
+	s+=String.format("%2d",day);
+	s+="</a>";
+	
+	return s;
+}
+    /* 일정등록 테이블 생성 */
+ public String showPen(int year,int month,int day){
+	 String s="";
+	 String url = "calwrite.jsp";
+	 String image = "<img src='../image/pen.gif'/>";
+	 s = String.format("<a href='%s?year=%d&month=%d&day=%d'>%s</a>",
+				       url,year,month,day,image		 
+			 );
+	 return s;
+ }
+    //숫자 1~9인 경우 2자리 처리
+ public String two(String msg){
+	 return msg.trim().length()<2?"0"+msg:msg.trim();
+ }
+    //메세지가 긴경우(>15) ...으로 표시
+ public String dot3(String msg){
+	 String s="";
+	 if(msg.length()>=15){
+		 s=msg.substring(0,15);
+		 s+="...";
+	 }else{
+		 s=msg.trim();
+	 }
+	 return s;
+ }
+ 
+ /* 일정 테이블 생성 */   
+public String makeTable(int year,int month,int day, List<CalendarDto> lists){
+	String s="";
+	String dates=(year+"")+two(month+"")+two(day+"");
+	s="<table>";
+	s+="<col width='98'/>";
+	for(CalendarDto l:lists){
+		if(!l.getMdate().substring(0,8).equals(dates)){
+			s+="<tr bgcolor='yellow'>";
+			s+="<td>";
+			
+			s+="<a href='caldetail.jsp?seq="+l.getSeq()+"'>";
+			s+="<font style='font-size:8;color:red'>";
+			s+=dot3(l.getTitle());
+			s+="</font></a></td></tr>";
+		}
+	}
+	s+="</table>";
+	return s;
+}
+%>
 <%
 	/* 달력 생성 */
 	Calendar cal = Calendar.getInstance();//칼랜다 객체
@@ -32,6 +94,8 @@
 		year++;
 	}
     
+	CalDao  dao = CalDao.getInstance();
+	List<CalendarDto> lists = dao.getCalendarList(id,year+two(mont+""));
 	//달력의 시작은 1일의 요일로 부터 시작
 	int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 	String s=String.format("%d년 %d월",year,month);
@@ -43,7 +107,7 @@
 	String nNs = String.format("<a href='calendar.jsp?year=%d&month=%d'><img src='../image/btn_next_p11.gif'/></a>",year+1,month);
 	
 %>
-<table border=1>
+<table border=1 width="500" height="600">
 <tr>
 <td colspan=7 align="center">
  <%=pPs%><%=ps%><%=s%><%=ns%><%=nNs%>
@@ -71,7 +135,8 @@
 	 String curl=String.format("calWrite.jsp?year=%d&month=%d&day=%d",year,month,i);
 	 
 	%>
-	<td bgColor="<%=bgColor%>"><a href=<%=curl%>><%=String.format("%d",i)%></a></td>
+	<td><%=callist(year, month, i)%>&nbsp;<%=showPen(year, month, i)%>
+	<%-- <%=makeTable(year, month, i, lists) %> --%></td>
    <%
    if((dayOfWeek-1+i)%7==0){
    %>

@@ -276,3 +276,5 @@ select lower(column_name)||','
   
  select * from book where book_id=149;
  
+ select * from BOOK_HISTORY;
+ 

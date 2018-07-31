@@ -264,11 +264,22 @@ public class BookDao extends DaoManger implements BookService {
 		return result;
 	}//updateBookInfo() 메소드 끝.
 
+	//서적 상품 삭제 메소드
 	@Override
 	public int deleteBook(int book_id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	   int result=0;
+	   String sql = "delete from book where book_id=?";
+	   try {
+		     pstmt = getConnection().prepareStatement(sql);
+		     pstmt.setInt(1, book_id);
+		     result = pstmt.executeUpdate();
+	   }catch(Exception e) {
+		   e.printStackTrace();
+	   }finally {
+		   close(conn,pstmt);
+	   }
+		return result;
+	}//deleteBook(int book_id)메소드 끝.
 
 	//관리자 로그인 체크
 	@Override
