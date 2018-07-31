@@ -91,10 +91,10 @@
 <td>${book.discount_rate}</td>
 <td>${book.reg_date}</td>
 <td>
-<a href="bookUpdateForm.jps?book_id=${book.book_id}&book_kind=${book.book_kind}">수정</a>
+<a href="bookUpdateForm.jsp?book_id=${book.book_id}&book_kind=${book.book_kind}">수정</a>
 </td>
 <td width="50">
-<a href="bookDeleteForm.jps?book_id=${book.book_id}&book_kind=${book.book_kind}">삭제</a>
+<a href="bookDeleteForm.jsp?book_id=${book.book_id}&book_kind=${book.book_kind}">삭제</a>
 </td>
 </tr>
 </c:forEach><!-- 반복문 끝. -->

@@ -171,17 +171,98 @@ public class BookDao extends DaoManger implements BookService {
 		return null;
 	}
 
+	//id에 해당하는 book정보 조회
 	@Override
 	public Book getBookInfo(int book_id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		Book book=null; 
+		String sql = "select * from book where book_id=?";
+		try {
+			pstmt=getConnection().prepareStatement(sql);
+			pstmt.setInt(1, book_id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				int i=0;
+				book = new Book();
+				book.setBook_id(rs.getInt(++i));
+				book.setBook_kind(rs.getString(++i));
+				book.setBook_title(rs.getString(++i));
+				book.setBook_price(rs.getInt(++i));
+				book.setBook_count(rs.getInt(++i));
+				book.setAuthor(rs.getString(++i));
+				book.setPublishing_com(rs.getString(++i));
+				book.setPublishing_date(rs.getString(++i));
+				book.setBook_image(rs.getString(++i));
+				book.setBook_content(rs.getString(++i));
+				book.setDiscount_rate(rs.getInt(++i));
+				book.setReg_date(rs.getDate(++i));	
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(conn, pstmt, rs);
+		}
+		return book;
+	}//getBookInfo(int book_id) 끝.
 
+	 //book데이타 수정 
 	@Override
 	public int updateBookInfo(Book book, int book_id) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		int result =0;
+		String sql = " update book set " 
+			       + " book_kind=?, "
+				   + " book_title=?, "
+				   + " book_price=?, "
+				   + " book_count=?, "
+				   + " author=?, "
+				   + " publishing_com=?, "
+				   + " publishing_date=?, ";
+		//이미지 선택했을때  
+		String sql1= " book_image=?, "
+				   + " book_content=?, "
+				   + " discount_rate=? "
+				   + " where book_id=?";
+		//이미지 선택하지 않았을 때
+		String sql2= " book_content=?," 
+				   + " discount_rate=? " 
+				   + " where book_id=?";
+		    if(book.getBook_image()!=null) {//선택했을 때
+		    	sql+=sql1;
+		    }else {//선택하지 않았을 때
+		    	sql+=sql2;
+		    }
+		 try {
+           		pstmt = getConnection().prepareStatement(sql);
+           		//이미지 선택했을때 	
+           		if(book.getBook_image()!=null) {
+           			pstmt.setString(8,book.getBook_image());
+               		pstmt.setString(9,book.getBook_content());
+               		pstmt.setInt(10,book.getDiscount_rate());
+               		pstmt.setInt(11,book_id);	
+           		}else {
+           		  //이미지 선택하지 않았을 때
+               		pstmt.setString(8,book.getBook_content());
+               		pstmt.setInt(9,book.getDiscount_rate());
+               		pstmt.setInt(10,book_id);
+           		}
+           		int i=0;
+           		//1번부터 7번까지는 공통
+           		pstmt.setString(++i,book.getBook_kind());
+           		pstmt.setString(++i,book.getBook_title());
+           		pstmt.setInt(++i,book.getBook_price());
+           		pstmt.setInt(++i,book.getBook_count());
+           		pstmt.setString(++i,book.getAuthor());
+           		pstmt.setString(++i,book.getPublishing_com());
+           		pstmt.setString(++i,book.getPublishing_date());
+           		
+           		//update처리
+           		result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(conn, pstmt);
+		}
+		return result;
+	}//updateBookInfo() 메소드 끝.
 
 	@Override
 	public int deleteBook(int book_id) {

@@ -260,12 +260,19 @@ select lower(column_name)||','
  
  select ')' from dual;
  
+ --update
+ select 'update '||lower(table_name)||' set ' 
+   from cols 
+  where table_name='BOOK' 
+    and rownum=1
+  union all
+ select lower(column_name)||'='||'?,'  
+   from cols 
+  where table_name='BOOK'
+ union all
+ select 'where book_id=?' 
+   from dual; 
+  
+  
+ select * from book where book_id=149;
  
- select * from book;
- 
- select * from member;
- 
- 
- select count(*) from book where book_kind like '100';
- 
- select * from book ;
