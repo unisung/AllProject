@@ -10,6 +10,7 @@ public class CalendarDto {
 	private String mdate;
 	private Date regdate;
 	//생성자
+	public CalendarDto() {}
 	public CalendarDto(int seq, String id, String title, String content, String mdate, Date regdate) {
 		this.seq = seq;
 		this.id = id;

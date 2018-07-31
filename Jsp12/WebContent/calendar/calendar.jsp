@@ -24,7 +24,7 @@
     /* 일정등록 테이블 생성 */
  public String showPen(int year,int month,int day){
 	 String s="";
-	 String url = "calwrite.jsp";
+	 String url = "calWrite2.jsp";
 	 String image = "<img src='../image/pen.gif'/>";
 	 s = String.format("<a href='%s?year=%d&month=%d&day=%d'>%s</a>",
 				       url,year,month,day,image		 
@@ -38,11 +38,13 @@
     //메세지가 긴경우(>15) ...으로 표시
  public String dot3(String msg){
 	 String s="";
-	 if(msg.length()>=15){
+	 if(msg!=null){
+	  if(msg.length()>=15){
 		 s=msg.substring(0,15);
 		 s+="...";
 	 }else{
 		 s=msg.trim();
+	  }
 	 }
 	 return s;
  }
@@ -52,14 +54,13 @@ public String makeTable(int year,int month,int day, List<CalendarDto> lists){
 	String s="";
 	String dates=(year+"")+two(month+"")+two(day+"");
 	s="<table>";
-	s+="<col width='98'/>";
+	s+="<col width='40'/>";
 	for(CalendarDto l:lists){
-		if(!l.getMdate().substring(0,8).equals(dates)){
-			s+="<tr bgcolor='yellow'>";
+		if(l.getMdate().substring(0,8).equals(dates)){
+			s+="<tr bgcolor='green'>";
 			s+="<td>";
-			
 			s+="<a href='caldetail.jsp?seq="+l.getSeq()+"'>";
-			s+="<font style='font-size:8;color:red'>";
+			s+="<font style='font-size:10;color:red'>";
 			s+=dot3(l.getTitle());
 			s+="</font></a></td></tr>";
 		}
@@ -93,9 +94,11 @@ public String makeTable(int year,int month,int day, List<CalendarDto> lists){
 		month=1;
 		year++;
 	}
+	
+	String id="hong";
     
 	CalDao  dao = CalDao.getInstance();
-	List<CalendarDto> lists = dao.getCalendarList(id,year+two(mont+""));
+	List<CalendarDto> lists = dao.getCalendarList(id,year+two(month+""));
 	//달력의 시작은 1일의 요일로 부터 시작
 	int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 	String s=String.format("%d년 %d월",year,month);
@@ -133,14 +136,12 @@ public String makeTable(int year,int month,int day, List<CalendarDto> lists){
 	 if((dayOfWeek-1+i)%7==1)bgColor="#ff5a5a";
 	 else if((dayOfWeek-1+i)%7==0)bgColor="#12eaff";
 	 String curl=String.format("calWrite.jsp?year=%d&month=%d&day=%d",year,month,i);
-	 
-	%>
-	<td><%=callist(year, month, i)%>&nbsp;<%=showPen(year, month, i)%>
-	<%-- <%=makeTable(year, month, i, lists) %> --%></td>
+	%><td><%=callist(year, month, i)%>&nbsp;<%=showPen(year, month, i)%>
+	<%=makeTable(year, month, i, lists) %></td>
    <%
    if((dayOfWeek-1+i)%7==0){
    %>
-   <tr></tr>
+   </tr><tr>
 <%}
  }
 for(int i=0;i<(7-(lastDay-1+dayOfWeek)%7)%7;i++){

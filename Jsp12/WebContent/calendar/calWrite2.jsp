@@ -53,7 +53,7 @@
 <%
 for(int i=tyear-5;i<tyear+6;i++){
 %>
-<option value="<%=i%>"><%=i%></option>
+<option <%=year.equals(i+"")?"selected='selected'":""%> value="<%=i%>"><%=i%></option>
 <%
 }
 %>	
@@ -62,7 +62,7 @@ for(int i=tyear-5;i<tyear+6;i++){
 <%
 for(int i=1;i<=12;i++){
 %>
-<option <%-- <%=month.equals(i+"")?"selected='selected'":""%> --%> value="<%=i%>"><%=i%></option>
+<option <%=month.equals(i+"")?"selected='selected'":""%> value="<%=i%>"><%=i%></option>
 <%
 }
 %>	
@@ -71,7 +71,7 @@ for(int i=1;i<=12;i++){
 <%
 for(int i=1;i<=cal.getActualMaximum(Calendar.DAY_OF_MONTH);i++){
 %>
-<option <%-- <%=day.equals(i+"")?"selected='selected'":""%> --%> value="<%=i%>"><%=i%></option>
+<option <%=day.equals(i+"")?"selected='selected'":""%> value="<%=i%>"><%=i%></option>
 <%
 }
 %>	
@@ -80,7 +80,7 @@ for(int i=1;i<=cal.getActualMaximum(Calendar.DAY_OF_MONTH);i++){
 <%
 for(int i=1;i<24;i++){
 %>
-<option <%-- <%=(thour+"").equals(i+"")?"selected='selected'":""%> --%> value="<%=i%>"><%=i%></option>
+<option <%=(thour+"").equals(i+"")?"selected='selected'":""%> value="<%=i%>"><%=i%></option>
 <%
 }
 %>	
@@ -89,7 +89,7 @@ for(int i=1;i<24;i++){
 <%
 for(int i=1;i<60;i++){
 %>
-<option <%-- <%=(tmin+"").equals(i+"")?"selected='selected'":""%> --%> value="<%=i%>"><%=i%></option>
+<option <%=(tmin+"").equals(i+"")?"selected='selected'":""%>  value="<%=i%>"><%=i%></option>
 <%
 }
 %>	
