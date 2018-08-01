@@ -6,6 +6,7 @@
 </head>
 <body>
 <form action="loginPro.jsp">
+<fieldset>
 <p>
 <label>id</label>
 <input type="text" name="id">
@@ -15,6 +16,8 @@
 <input type="password" name="password">
 </p>
 <input type="submit" value="확인">
+</fieldset>
 </form>
+
 </body>
 </html>
