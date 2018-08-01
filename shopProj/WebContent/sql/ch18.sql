@@ -278,3 +278,33 @@ select lower(column_name)||','
  
  select * from BOOK_HISTORY;
  
+ select * from
+ (select * from book where book_kind='100' order by reg_date desc)
+ where rownum<=5;
+ 
+ 
+ --분류별 조회
+ select * from
+ (select rownum rn, book.* from book where book_kind='300' order by reg_date desc)
+ where rn between 11 and 20;
+ 
+ -- all조회
+ select * from
+ (select rownum rn, book.* from book order by reg_date desc)
+ where rn between 11 and 20;
+ 
+ 
+ select * from
+ (select rownum rn, book.* from book where book_kind like '%' order by reg_date desc)
+ where rn between 11 and 20;
+ 
+ select * from
+ (select rownum rn, a.* from
+ (select * from book where book_kind like '100' order by reg_date desc) a)
+ where rn between 11 and 20;
+ 
+ 
+ 
+ select * from (select rownum rn, a.* from (select * from book order by book_id) a ) where rn between 11 and 20 ;
+ 
+ 

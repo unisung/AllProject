@@ -167,9 +167,53 @@ public class BookDao extends DaoManger implements BookService {
 
 	@Override
 	public List<Book> getBooks(String kind, int startRow, int endRow) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		List<Book> list = new ArrayList<>();
+		Book book = null;
+		String sql = "select * from (select rownum rn, a.* from "
+				   + " (select * from book ";
+		String sql2=" order by book_id) a ) where rn between ? and ?";
+		String sql3=" where book_kind=? order by book_id) a ) where rn  between ? and ?";
+        try {
+        	conn = getConnection();
+        	if(kind.equals("all")) {
+        		pstmt = conn.prepareStatement(sql+sql2);
+        		pstmt.setInt(1, startRow);
+        		pstmt.setInt(2, endRow);
+        	}else {
+        		pstmt=conn.prepareStatement(sql+sql3);
+        		pstmt.setString(1, kind);
+        		pstmt.setInt(2, startRow);
+        		pstmt.setInt(3, endRow);
+        	}
+        	rs = pstmt.executeQuery();
+        	
+         while(rs.next()){
+        	  int i=1;//쿼리문의 rownum rn 칼럼이후부터 데이타 를 가져옴
+        	  book = new Book();
+        	  
+        	  book.setBook_id(rs.getInt(++i));
+        	  book.setBook_kind(rs.getString(++i));
+        	  book.setBook_title(rs.getString(++i));
+        	  book.setBook_price(rs.getInt(++i));
+        	  book.setBook_count(rs.getInt(++i));
+        	  book.setAuthor(rs.getString(++i));
+        	  book.setPublishing_com(rs.getString(++i));
+        	  book.setPublishing_date(rs.getString(++i));
+        	  book.setBook_image(rs.getString(++i));
+        	  book.setBook_content(rs.getString(++i));
+        	  book.setDiscount_rate(rs.getInt(++i));
+        	  book.setReg_date(rs.getDate(++i));
+        	  
+        	  //list에 add
+        	  list.add(book);
+         }
+        }catch(Exception e) {
+        	e.printStackTrace();
+        }finally {
+        	close(conn, pstmt, rs);
+        }	
+		return list;
+	}//List<Book> getBooks()메소드 끝.
 
 	//id에 해당하는 book정보 조회
 	@Override

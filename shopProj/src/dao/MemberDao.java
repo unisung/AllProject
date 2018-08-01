@@ -134,7 +134,7 @@ public class MemberDao implements MemberService {
         		  member.setId(rs.getString(++i));
         		  member.setPassword(rs.getString(++i));
         		  member.setName(rs.getString(++i));
-        		  member.setBirth(rs.getDate(+i));
+        		  member.setBirth(rs.getDate(++i));
         		  member.setZipno(rs.getString(++i));
         		  member.setAddress1(rs.getString(++i));
         		  member.setAddress2(rs.getString(++i));
