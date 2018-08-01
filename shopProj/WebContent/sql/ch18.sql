@@ -307,4 +307,56 @@ select lower(column_name)||','
  
  select * from (select rownum rn, a.* from (select * from book order by book_id) a ) where rn between 11 and 20 ;
  
+ --도서 분야(카테고리)테이블
+ create table category(
+ catNo varchar2(3) primary key,
+ catName varchar(20) not null
+ );
+ --시퀀스 삭제 drop sequence 시퀀스 명;
+drop sequence cat_seq;
+-- 시퀀스 생성 create sequence 시쿼스명 start with 시작번호 increment by 증가분;
+create sequence cat_seq start with 100 increment by 100;
+-- 테이블 내 데이타 자르기 
+truncate table category;
+-- 시퀀스를 이용한 값 입력
+insert into category(catNo, catName) values(cat_seq.nextval,'문학');
+insert into category(catNo, catName) values(cat_seq.nextval,'외국어');
+insert into category(catNo, catName) values(cat_seq.nextval,'컴퓨터');
+
+select * from category;
+
+--- union all 집합 A U B U C U D
+select '1' from dual
+union all
+select '1' from dual
+union all
+select '3' from dual;
+
+select 'insert into cart(' from dual
+union all
+select lower(column_name)||',' 
+  from cols
+ where table_name = 'CART'
+union all
+select ') values(?,?,?,?,?,?,?)' from dual;
  
+
+select * from cart;
+select * from book where book_id =0;
+
+select * from user_objects where object_type='SEQUENCE';
+ 
+select cart_seq.nextval from dual;
+
+
+--카트 저장시 상품수량 재고에서 빼기 트리거
+create or replace trigger cart_trg_iu
+after insert on cart
+for each row
+begin
+   update book 
+      set book_count = book_count -:new.buy_count --:new.buy_count는 cart의 칼럼값 
+    where book_id=:new.book_id;--:new.book_id는 cart의 칼럼값
+end;
+
+

@@ -123,7 +123,7 @@
   <a href="list.jsp?pageNum=${startPage-BLOCKSIZE}&book_kind=${book_kind}">[이전]</a>
   </c:if>
   <!-- 페이지 리스트 -->
-  <c:forEach var="i" begin="${startPage}" end="${endPage}">
+  <c:forEach var="i" begin="${startPage}" end="${endPage>pageCount?pageCount:endPage}">
     <a href="list.jsp?pageNum=${i}&book_kind=${book_kind}">${i}</a>
   </c:forEach>
   <!-- 다음 페이지 리스트 -->
@@ -131,25 +131,19 @@
   <a href="list.jsp?pageNum=${startPage+BLOCKSIZE}&book_kind=${book_kind}">[다음]</a>
   </c:if>
    </b></font>
-  
-  
-  
-  
-  
-  
-  
   </div>
-  
-  
-  
-  
-  </c:if>
- 
- 
+  </c:if><!-- 데이타 존재시 출력부분  -->
 </td>
 </tr>
 
-
+<tr><!-- bottom -->
+<td valign="top" align="center">
+<img src="../module/logo.jpg" width="90" height="60">
+</td>
+<td width="700" valign="top">
+<jsp:include page="../module/bottom.jsp"></jsp:include>
+</td>
+</tr>
 </table>
 
 </body>

@@ -11,7 +11,7 @@
 </head>
 <body>
 <%
-	/* for(int i=1;i<50;i++){
+	for(int i=1;i<50;i++){
 		Book  book = new Book();
 		book.setBook_kind("100");
 		book.setBook_title("book_title"+i);
@@ -28,7 +28,7 @@
 		
 		BookDao bookProcess = BookDao.getInstance();
 		 bookProcess.insertBook(book);
-	} */
+	} 
 
 	for(int i=1;i<50;i++){
 		Book  book = new Book();
