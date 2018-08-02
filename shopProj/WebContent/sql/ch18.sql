@@ -350,13 +350,42 @@ select cart_seq.nextval from dual;
 
 
 --카트 저장시 상품수량 재고에서 빼기 트리거
+-- 트리거 insert update시에 작동하는 트리거:insert or update(or delete)  
+-- after: 테이블에 입력후 작동
+-- 테이블 타겟: on 테이블명 (on cart)
+-- 한건 입력시마다 처리: for each row(옵션)
 create or replace trigger cart_trg_iu
-after insert on cart
+after insert or update on cart
 for each row
 begin
    update book 
-      set book_count = book_count -:new.buy_count --:new.buy_count는 cart의 칼럼값 
+      set book_count = book_count - (nvl(:new.buy_count,0)-nvl(:old.buy_count,0)) --:new.buy_count는 cart의 칼럼값 
     where book_id=:new.book_id;--:new.book_id는 cart의 칼럼값
 end;
 
+-- 트리거 활성화 여부 확인
+select TRIGGER_NAME, STATUS from user_triggers where trigger_name like 'CART_TRG%';
+-- 트리거 정상 상태 확인
+select OBJECT_NAME, STATUS from user_objects where object_type='TRIGGER';
 
+
+select * from cart;
+select * from book where book_id=40;
+
+select * from cart where buyer='hong';
+
+
+--cart 삭제 트리거
+create or replace trigger cart_trg_d
+after delete on cart
+for each row
+begin
+   update book 
+      set book_count = book_count + nvl(:old.buy_count,0) --:old.buy_count는 cart의 칼럼값 
+    where book_id=:old.book_id;--:old.book_id는 cart의 칼럼값
+end;
+
+-- 트리거 활성화 여부 확인
+select TRIGGER_NAME, STATUS from user_triggers where trigger_name like 'CART_TRG%';
+-- 트리거 정상 상태 확인
+select OBJECT_NAME, STATUS from user_objects where object_type='TRIGGER';
