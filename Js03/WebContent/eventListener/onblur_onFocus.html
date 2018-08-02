@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+function checkFiled(obj){
+	if(obj.value==""){
+		alert("enter name");
+		obj.focus();//obj에 다시 포커스
+		return;
+	}
+}
+</script>
+</head>
+<body>
+<h3>onfocus와 onblur</h3>
+<hr>
+<p>
+ 이름을 입력하지 않고 다른 창으로 이동할수 없습니다.</p>
+ <form>
+ 이름:<input type="text" id="name" onblur="checkFiled(this)"><p>
+ 학번:<input type="text">
+ </form>
+</body>
+</html>

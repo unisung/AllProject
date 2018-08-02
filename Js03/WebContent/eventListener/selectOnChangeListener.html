@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8">
+<title>select객체에서 선택한 과일출력</title>
+<script>
+function drawImage(){
+	var sel = document.getElementById("fruits");//select박스
+	var img = document.getElementById("fruitImage");
+	var index = sel.selectedIndex;
+	console.log("index",index);
+	/* select내의 options배열의 순선(index)에 해당하는 value */
+	img.src = sel.options[index].value;	
+	console.log("value",sel.options[index].value);
+}
+</script>
+</head>
+<body onload="drawImage()">
+<h3>select 객체에서 선택한 과일출력</h3>
+<hr>
+<form>
+<select id="fruits" onchange="drawImage()">
+<option value="../media/mango.png">망고</option>
+<option value="../media/banana.png">바나나</option>
+<option value="../media/apple.png">사과</option>
+</select>
+<img id="fruitImage" src="../media/banana.png" alt="">
+</form>
+</body>
+</html>
