@@ -146,21 +146,44 @@ public class CartDao extends DaoManger implements CartService {
 		String sql ="delete from cart where buyer=?";
 		try {
 			conn = getConnection();
+			conn.setAutoCommit(false);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, buyer);
-			count = pstmt.executeUpdate();
+			count = pstmt.executeUpdate();//삭제된 행의 수가 리턴
+			conn.commit();
 		}catch(Exception e) {
+		 try{conn.rollback();}catch(Exception e1){e1.printStackTrace();}
 		  e.printStackTrace();	
 		}finally {
+			try{conn.setAutoCommit(true);}catch(Exception e2){e2.printStackTrace();}			
 			close(conn,pstmt);
 		}
+		System.out.println("삭제된 건수:"+count);
 		return count;
 	}//deleteAll() 메소드
 
+	//장바구니 건별 삭제
 	@Override
 	public int deleteCart(int list) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+		int count = 0;
+		String sql = "delete from cart where cart_id=?";
+		try {
+			  conn=getConnection();
+			  conn.setAutoCommit(false);
+			  
+			  pstmt=conn.prepareStatement(sql);
+			  pstmt.setInt(1, list);
+			  count = pstmt.executeUpdate();
+			  conn.commit();
+		}catch(Exception e) {
+			try{conn.rollback();}catch(Exception e1){e1.printStackTrace();}
+			e.printStackTrace();
+		}finally {
+			try {
+			      conn.setAutoCommit(true);
+			}catch(Exception e2) {e2.printStackTrace();}
+			close(conn,pstmt);
+		}
+		return count;
+	}//deleteCart()메소드 끝.
 }

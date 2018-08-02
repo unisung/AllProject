@@ -3,10 +3,13 @@
 <%@ include file="loginCheck.jsp" %>
 <%
     String list = request.getParameter("list");
-	String buyer = request.getParameter("id");
+	//세션에서 로그인 id 추출
+	String buyer = (String)session.getAttribute("id");
 	String book_kind = request.getParameter("book_kind");
 	
-	CartDao dao = CartDao.getInstance();
+	System.out.println("id="+buyer);
+	
+	 CartDao dao = CartDao.getInstance();
 	int result = 0;
 	 //전체인 경우 삭제
 	if("all".equals(list)){

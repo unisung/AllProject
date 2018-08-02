@@ -38,6 +38,23 @@
     request.setAttribute("book_kind", book_kind); 
 %>
 <html><head>
+<script>
+function chk(){
+	var count = document.inform.buy_count.value;
+	if(count.length==0){
+		alert('수정은 값이 있어야합니다.');
+		document.inform.buy_count.focus();
+		return false;
+	}
+	if(isNaN(count)){
+		alert('값은 숫자여야합니다.');
+		document.inform.buy_count.value="";
+		document.inform.buy_count.focus();
+		return false;
+	}
+	return true;
+}
+</script>
 <title>상품 카드 리스트</title></head><body>
 <h3><b>장바구니</b></h3>
 <!-- 장바구니가 비어있을 경우 -->
@@ -70,7 +87,7 @@
 <fmt:formatNumber value="${cart.buy_price}" type="currency" currencySymbol="￦" />
 </td>
 <td width=150 align="center">
-<form action="updateCart.jsp" name="inform" method="post">
+<form action="updateCart.jsp" name="inform" method="post" >
  <input type="text" name="buy_count" size="5" value=${cart.buy_count}>
  <input type="hidden" name="cart_id" value="${cart.cart_id}">
  <input type="hidden" name="book_kind" value="${book_kind}">

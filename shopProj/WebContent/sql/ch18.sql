@@ -389,3 +389,16 @@ end;
 select TRIGGER_NAME, STATUS from user_triggers where trigger_name like 'CART_TRG%';
 -- 트리거 정상 상태 확인
 select OBJECT_NAME, STATUS from user_objects where object_type='TRIGGER';
+
+
+select * from cart where buyer='hong';
+
+alter trigger cart_trg_d disable;
+alter trigger cart_trg_d enable;
+
+select book_id from cart;
+select book_id,book_count from book where book_id in (select book_id from cart);
+select book_id,book_count from book where book_id in (6,2);
+
+
+select * from cart, book where cart.book_id(+)=book.book_id and book.book_id is not null;
