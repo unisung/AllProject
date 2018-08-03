@@ -2,7 +2,6 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ include file="loginCheck.jsp" %>
 <%
-  
   String cart_id = request.getParameter("cart_id");
   String book_kind = request.getParameter("book_kind");
   String buy_count = request.getParameter("buy_count");

@@ -66,6 +66,8 @@ insert into bank values('111-1111-1111','신한','길동');
 insert into bank values('222-2222-2222','국민','하재'); 
 insert into bank values('333-3333-3333','농협','석태'); 
 
+select * from bank;
+
 --drop sequence cart_seq;
 -- 장바구니 테이블입력용 시쿼스 생성
 create sequence cart_seq;
@@ -85,6 +87,9 @@ create table cart (
 
 select * from cart;
 select * from cart where buyer='hong';
+
+--구매 테이블 시퀀스
+create sequence buy_seq start with 1 increment by 1;
 
 --drop table buy;
 -- 구매 테이블 생성
@@ -396,9 +401,85 @@ select * from cart where buyer='hong';
 alter trigger cart_trg_d disable;
 alter trigger cart_trg_d enable;
 
+
+
 select book_id from cart;
 select book_id,book_count from book where book_id in (select book_id from cart);
 select book_id,book_count from book where book_id in (6,2);
 
 
 select * from cart, book where cart.book_id(+)=book.book_id and book.book_id is not null;
+
+--배송지 테이블
+create table receiver(
+	id varchar2(12) not null, -- 회원 id
+	seq number(3) not null,-- 순번
+	nickname varchar2(20) not null,--배송지 명
+	name varchar2(20) not null,  -- 수신자 명
+	zipno varchar2(7), -- 우편번호
+	address1 varchar2(150), -- 주소1
+	address2 varchar2(150), -- 주소2 
+	tel1 varchar2(3),  -- 전화번호1
+    tel2 varchar2(4),  -- 전화번호2
+    tel3 varchar2(4),  -- 전화번호3
+	regdate date default sysdate --등록일자
+);
+
+select * from receiver
+
+
+select 'insert into receiver(' from dual
+union all
+select lower(column_name)||',' 
+  from cols
+ where table_name = 'RECEIVER'
+union all
+select ') values(?,?,?,?,?,?,?,?,?,?,?)' from dual;
+ 
+select nvl(max(seq),0)+1 from receiver where id='hong';
+
+select * from receiver;
+--
+
+
+select id,seq,'기본주소',name,zipno,address1,address2,tel1,tel2,tel3 
+  from receiver 
+ where id = 'hong' 
+   and seq =1 
+ 
+   union
+   
+select id,1,'기본주소',name,zipno,address1,address2,tel1,tel2,tel3 
+  from member 
+ where id = 'hong' 
+ ;
+
+ 
+ select id,seq,nickname,name,zipno,address1,address2,tel1,tel2,tel3 
+  from receiver 
+ where id = 'hong' 
+  order by seq;
+
+
+  
+  select id,seq,nickname,name,zipno,address1,address2,tel1,tel2,tel3 
+  from receiver
+  where id = 'hong' 
+  order by seq;		
+
+  
+  create table test(
+  no number,
+  cont varchar2(10)
+  );
+  insert into test values(1,'test1');
+  insert into test values(2,'test2');
+  
+  select * from test;
+  
+  select * from user_objects where object_type='SEQUENCE';
+  
+  
+  
+  select * from buy;
+  

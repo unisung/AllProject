@@ -13,14 +13,18 @@
    	int buy_Price=0;
    	/* session 체크 */
    	id = session.getAttribute("id")==null?"not":(String)session.getAttribute("id");
+   	
    	System.out.println("id="+id);
    	/* 카테고리 및 도서 정보 조회 */
    	String book_kindName ="";
    	BookDao dao = BookDao.getInstance();
-   	/* 도성정보 추출 */
+   	/* 도서정보 추출 */
    	Book book = dao.getBookInfo(Integer.parseInt(book_id));
+   	//도서분류코드 수정처리
+    book_kind=(book_kind ==null||"".equals(book_kind))?book.getBook_kind():book_kind;
+   	
    	CategoryDao cateDao = CategoryDao.getInstance();
-   	 book_kindName= cateDao.getBook_kindName(book_kind);
+   	book_kindName= cateDao.getBook_kindName(book_kind);
    	
    	 /* request에 속성으로 객체 저장 */
    	 request.setAttribute("book", book);

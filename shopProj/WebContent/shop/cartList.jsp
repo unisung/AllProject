@@ -39,20 +39,24 @@
 %>
 <html><head>
 <script>
-function chk(){
-	var count = document.inform.buy_count.value;
-	if(count.length==0){
-		alert('수정은 값이 있어야합니다.');
-		document.inform.buy_count.focus();
-		return false;
+function chk(obj){//해당 DOM객체(form)가 매개변수로 넘어옴.
+	var thisObj = obj.buy_count;//매개변수로 넘어온 DOM객체의 buy_count요소 구하기
+	var count = thisObj.value;//buy_count의 값 구하기
+	if(count==""){
+		alert('수정값은 비어있으면 안됩니다.');
+		obj.reset();//매개변수로 넘어온 obj가 form임. reset()메소드로 form을 초기화
+		thisObj.focus();//obj의 buy_count에 focus()처리
+		return false;//기본 행동 금지처리
 	}
 	if(isNaN(count)){
-		alert('값은 숫자여야합니다.');
-		document.inform.buy_count.value="";
-		document.inform.buy_count.focus();
+		alert('수정값은 숫자여야합니다.~~~');
+		/* thisObj.value="";
+		thisObj.focus(); */
+		obj.reset();
+		thisObj.focus();
 		return false;
 	}
-	return true;
+	return false;
 }
 </script>
 <title>상품 카드 리스트</title></head><body>
@@ -87,7 +91,9 @@ function chk(){
 <fmt:formatNumber value="${cart.buy_price}" type="currency" currencySymbol="￦" />
 </td>
 <td width=150 align="center">
-<form action="updateCart.jsp" name="inform" method="post" >
+
+<form action="updateCart.jsp" name="inform" method="post" 
+                                                 onsubmit="return chk(this)">
  <input type="text" name="buy_count" size="5" value=${cart.buy_count}>
  <input type="hidden" name="cart_id" value="${cart.cart_id}">
  <input type="hidden" name="book_kind" value="${book_kind}">
@@ -109,13 +115,14 @@ function chk(){
 </tr>
 <tr>
 <td colspan=5 align=center valign=middle>
-<form>
-<input type="button" value="구매하기" onclick="location.href='buyForm.jsp'">
-<input type="button" value="쇼핑계속" 
-                        onclick="location.href='list.jsp?book_kind=${book_kind}'">
-<input type="button" value="장바구니비우기"
-            onclick="location.href='cartDel.jsp?list=all&book_kind=${book_kind}'">                        
-</form>
+	<form>
+	<input type="button" value="구매하기" onclick="location.href='buyForm.jsp'">
+	<input type="button" value="쇼핑계속" 
+	                        onclick="location.href='list.jsp?book_kind=${book_kind}'">
+	<input type="button" value="장바구니비우기"
+	            onclick="location.href='cartDel.jsp?list=all&book_kind=${book_kind}'">                        
+	</form>
+
 </td>
 </tr>
 </table>
