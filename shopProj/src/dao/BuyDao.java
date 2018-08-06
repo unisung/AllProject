@@ -85,7 +85,7 @@ public class BuyDao extends DaoManger implements BuyService {
 			   pstmt = conn.prepareStatement(sql_cart_del);
 			   pstmt.setString(1,buy.getBuyer());//구매자 id
 			   //카트 삭제 처리
-			   pstmt.executeUpdate();
+			  result= pstmt.executeUpdate(); //최종 트랜젝션인 delete작업에서 result를 받음.
 			   conn.commit();
 			   //삭제 트리거 활성화
 				 pstmt = conn.prepareStatement(sql_trg_enable);
@@ -100,11 +100,25 @@ public class BuyDao extends DaoManger implements BuyService {
 		return result;
 	}//insertBuy() 메소드 끝.
 
+	//해당buyer(id)의 구매 건수 구하기
 	@Override
 	public int getBuyListCount(String buyer) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		int count =0;
+		String sql ="select count(*) from buy where buyer=?";
+	try {
+		   pstmt = getConnection().prepareStatement(sql);
+		   pstmt.setString(1, buyer);
+		   rs = pstmt.executeQuery();
+		   if(rs.next()) {
+			   count = rs.getInt(1);
+		   }
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(conn, pstmt, rs);
+		}
+		return count;
+	}//getBuyListCount(String buyer) 메소드 끝.
 
 	@Override
 	public ArrayList<Buy> getBuyList(String buyer) {
@@ -112,11 +126,47 @@ public class BuyDao extends DaoManger implements BuyService {
 		return null;
 	}
 
+	//해당id(buyer)로 구매한 리스트 구하기
 	@Override
 	public ArrayList<Buy> getBuyList(String buyer, int startRow, int endRow) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		//리턴타입인 리스트 객체 생성
+		ArrayList<Buy> list=new ArrayList<>();
+	    String sql ="select rn,buy_id, book_id, book_title,buy_price,buy_count,book_image,sanction from " + 
+	    		    " (select rownum rn, a.* " + 
+	    		    " from " + 
+	    		    " (select * from buy where buyer=? order by buy_id) a ) " + 
+	    		    " where rn between ? and ? ";
+	    try {
+	          pstmt = getConnection().prepareStatement(sql);
+	          pstmt.setString(1,buyer);
+	          pstmt.setInt(2, startRow);
+              pstmt.setInt(3, endRow);
+              
+              rs = pstmt.executeQuery();
+              while(rs.next()) {
+            	  int i=1;//쿼리 결과는 rn,id,.., rn을 제외한 2번째 칼럼부터 시작
+            	  //buy객체 생성
+            	  Buy buy = new Buy();
+            	  //buy객체의 속성에 쿼리 결과를 setting
+            	  buy.setBuy_id(rs.getInt(++i));//쿼리 결과의 2번째 결과값 부터 시작
+            	  buy.setBook_id(rs.getInt(++i));//
+            	  buy.setBook_title(rs.getString(++i));
+            	  buy.setBuy_price(rs.getInt(++i));
+            	  buy.setBuy_count(rs.getInt(++i));
+            	  buy.setBook_image(rs.getString(++i));
+            	  buy.setSanction(rs.getString(++i));
+            	  
+            	  //리스트에 buy객체 저장하기  
+            	  list.add(buy);
+              }
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+	    }finally {
+	    	close(conn,pstmt,rs);
+	    }
+		return list;//리스트 객체 리턴
+	}//getBuyList()메소드 끝.
+	
 
 	@Override
 	public ArrayList<Buy> getBuyList(int startRow, int endRow) {

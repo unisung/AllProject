@@ -56,7 +56,7 @@ function chk(obj){//해당 DOM객체(form)가 매개변수로 넘어옴.
 		thisObj.focus();
 		return false;
 	}
-	return false;
+	return true;
 }
 </script>
 <title>상품 카드 리스트</title></head><body>

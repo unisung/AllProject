@@ -105,12 +105,15 @@ create table buy (
 	account varchar2(50),           -- 결재계좌 
 	deliveryName varchar2(12),      -- 수신자 
 	deliveryTel varchar2(20),       -- 수신전화번호 
-	deliveryAddress varchar2(80),   -- 수신주소
+	deliveryAddress varchar2(300),   -- 수신주소
 	sanction varchar2(12) default '준비중'  -- 배송상태 결제-준비중-배송중-배송완료
 );
-select * from buy;
+-- member테이블의 address1+address2의 길이가 300이므로 300으로 조정 처리
+alter table buy modify deliveryAddress varchar2(300);
+select * from buy  -- a, book b  where a.book_id = b.book_id;
 --member 테이블 생성
 drop table member;
+
 
 --회원테이블member 생성
 create table member(
@@ -479,7 +482,18 @@ select id,1,'기본주소',name,zipno,address1,address2,tel1,tel2,tel3
   
   select * from user_objects where object_type='SEQUENCE';
   
+select rn,buy_id, book_title,buy_price,buy_count,book_image,sanction  from  
+(select rownum rn, a.* 
+  from 
+(select * from buy where buyer='hong' order by buy_id) a )
+where rn between 1 and 10;
+;
   
+  select count(*) from buy where buyer='hong';
   
   select * from buy;
+  update buy set sanction ='배송완료' where buy_id=3;
+  update buy set sanction ='배송중' where buy_id=4;
+  update buy set sanction ='구매확정' where buy_id=22;
+  
   

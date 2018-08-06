@@ -21,6 +21,7 @@
    	/* 도서정보 추출 */
    	Book book = dao.getBookInfo(Integer.parseInt(book_id));
    	//도서분류코드 수정처리
+   	//파라미터로 넘어온 book_kind값이 없으면 book객체에서 book_kind()로 구함.
     book_kind=(book_kind ==null||"".equals(book_kind))?book.getBook_kind():book_kind;
    	
    	CategoryDao cateDao = CategoryDao.getInstance();
