@@ -7,8 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
-	response.sendRedirect("manager/managerMain.jsp");
-%>
+<h1>도움말 페이지</h1>
+<a href="../shop/shopMain.jsp">메인으로</a>
 </body>
 </html>

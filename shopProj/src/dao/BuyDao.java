@@ -168,17 +168,66 @@ public class BuyDao extends DaoManger implements BuyService {
 	}//getBuyList()메소드 끝.
 	
 
+	//관리자용 구매목록 정보 리스트 구하기 메소드
 	@Override
 	public ArrayList<Buy> getBuyList(int startRow, int endRow) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		ArrayList<Buy> list = new ArrayList<>();
+		String sql=" select buy_id, buyer, book_id, book_title,"
+				 + " buy_price, buy_count, book_image,"
+				 + " buy_date, account, deliveryname, deliverytel, "
+				 + " deliveryaddress, sanction " 
+				 + " from (select rownum rn, a.*  " 
+				 + "from (select * from buy order by buy_id) a ) " 
+				 + " where rn between  ? and  ? ";
+		try {
+			 conn = getConnection();
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setInt(1, startRow);
+			 pstmt.setInt(2,endRow);
+			 rs = pstmt.executeQuery();
+		    while(rs.next()) {
+		    	int i=0;
+		    	//Buy객체 생성
+		    	Buy buy = new Buy();
+		    	//buy객체에 프로퍼티 설정
+		    	buy.setBuy_id(rs.getInt(++i));
+		    	buy.setBuyer(rs.getString(++i));
+		    	buy.setBook_id(rs.getInt(++i));
+		    	buy.setBook_title(rs.getString(++i));
+		    	buy.setBuy_price(rs.getInt(++i));
+		    	buy.setBuy_count(rs.getInt(++i));
+		    	buy.setBook_image(rs.getString(++i));
+		    	buy.setBuy_date(rs.getDate(++i));
+		    	buy.setAccount(rs.getString(++i));
+		    	buy.setDeliveryname(rs.getString(++i));
+		    	buy.setDeliverytel(rs.getString(++i));
+		    	buy.setDeliveryaddress(rs.getString(++i));
+		    	buy.setSanction(rs.getString(++i));
+		    	//list에 buy객체 저장
+		    	list.add(buy);
+		    }
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(conn,pstmt,rs);
+		}
+		return list;
+	}//getBuyList()메소드 끝.
 
+	//관리자용 구매건수 확인 메소드
 	@Override
-	public int getBuyListCount() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int getBuyListCount() {	
+		int count = 0;
+		String sql = "select count(*) from buy";
+	    try {
+	    	   pstmt = getConnection().prepareStatement(sql);
+	    	   rs = pstmt.executeQuery();
+	    	   if(rs.next()) count = rs.getInt(1);
+	    }catch(Exception e) {
+	    	e.printStackTrace();
+	    }
+		return count;
+	}//getBuyListCount() 메소드 끝.
 
 	@Override
 	public ArrayList<Buy> getBuyList() {
@@ -186,10 +235,27 @@ public class BuyDao extends DaoManger implements BuyService {
 		return null;
 	}
 
+	//상품의 상태 값 수정처리 메소드
 	@Override
 	public int updateOrderStatus(int buy_id, String status) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+		int count=0;
+		String sql="update buy set sanction=? where buy_id=?";
+		try {
+			 conn=getConnection();
+			 conn.setAutoCommit(false);
+			 pstmt = conn.prepareStatement(sql);
+			 pstmt.setString(1,status);
+			 pstmt.setInt(2, buy_id);
+			 count = pstmt.executeUpdate();
+			 conn.commit();
+		}catch(Exception e) {
+			try {conn.rollback();}catch(Exception e1) {e1.printStackTrace();}
+			e.printStackTrace();
+		}finally {
+			try{conn.setAutoCommit(true);}catch(Exception e){e.printStackTrace();}
+			close(conn,pstmt);
+		}
+		return count;
+	}//updateOrderStatus()메소드 끝.
 
 }

@@ -497,3 +497,20 @@ where rn between 1 and 10;
   update buy set sanction ='구매확정' where buy_id=22;
   
   
+  
+  
+  select buy_id, book_id, book_title,buy_price,buy_count,book_image,sanction 
+    from (select rownum rn, a.*  
+	   from (select * from buy order by buy_id) a ) 
+  where rn between  1 and  10 ;
+  
+  
+  
+select * from buy;  
+  
+  
+  
+  
+  
+  
+  

@@ -111,10 +111,10 @@
   
   <br><!-- 구매확정/반품 처리  -->
   <c:if test="${buy.sanction=='배송완료'}">
-  <input type="button" value="구매/반품 확정" 
-        onclick="location.href='buyStatusPro.jsp'?buy_id=${buy.buy_id}&sanction=구매확정'">
+  <input type="button" value="구매 확정" 
+        onclick="location.href='buyStatusPro.jsp?buy_id=${buy.buy_id}&sanction=구매확정'">
    <input type="button" value="반품"
-        onclick="location.href='buyStatusPro.jsp'?buy_id=${buy.buy_id}&sanction=반품'">
+        onclick="location.href='buyStatusPro.jsp?buy_id=${buy.buy_id}&sanction=반품'">
   </c:if>      
    </td>
 </tr>

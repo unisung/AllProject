@@ -1,6 +1,4 @@
-<%@page import="model.PagingBean"%>
-<%@page import="util.Paging"%>
-<%@page import="java.util.ArrayList"%><%@page import="dao.BookDao"%><%@page import="model.Book"%><%@page import="java.util.List"%>
+<%@page import="model.PagingBean"%><%@page import="util.Paging"%><%@page import="java.util.ArrayList"%><%@page import="dao.BookDao"%><%@page import="model.Book"%><%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -99,7 +97,8 @@
     	</td>
     </tr>
     <tr height="30">
-    	<td width="350">저자:${book.author}
+    	<td width="350">저자:${book.author}&nbsp;
+    	   <c:if test="${book.discount_rate!=0}">(${book.discount_rate}%할인)</c:if>
     	</td>
     </tr>
     <tr height="30">
@@ -108,10 +107,9 @@
     	<fmt:formatNumber value="${book.book_price}" pattern="###,##0"/>
     	</s>원
     	<br>
-    	판매가:<s>
+    	판매가:
     	<fmt:formatNumber value="${book.book_price*(100-book.discount_rate)/100}" 
-    	              pattern="###,##0"/>
-    	</s>원
+    	              pattern="###,##0"/> 원
     	</td>
     </tr>
    </table><!--목록 상세 테이블 끝.  -->
